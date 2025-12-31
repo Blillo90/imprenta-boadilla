@@ -1,16 +1,194 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Imprenta Boadilla — Imprenta, Cartelería y Packaging">
+  <header class="border-b border-white/10 bg-slate-950/70 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+      <a href="/" class="font-semibold tracking-tight">Imprenta Boadilla</a>
+      <nav class="flex items-center gap-4 text-sm text-white/80">
+        <a class="hover:text-white" href="#servicios">Servicios</a>
+        <a class="hover:text-white" href="/presupuesto">Presupuesto</a>
+        <a class="hover:text-white" href="/contacto">Contacto</a>
+        <a class="rounded-lg bg-white px-3 py-2 text-slate-950 hover:bg-white/90" href="/presupuesto">Pedir presupuesto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="mx-auto max-w-6xl px-4 py-16">
+      <div class="grid gap-10 md:grid-cols-2 md:items-center">
+        <div>
+          <p class="text-sm text-white/70">Boadilla del Monte • Entrega rápida • Atención por WhatsApp</p>
+          <h1 class="mt-3 text-4xl font-bold tracking-tight md:text-5xl">
+            Imprenta, cartelería y packaging con calidad profesional
+          </h1>
+          <p class="mt-4 text-lg text-white/80">
+            Tarjetas, flyers, vinilos, lonas, rótulos, pegatinas, bolsas, cajas… Te preparamos presupuesto rápido y te asesoramos.
+          </p>
+
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="/presupuesto" class="rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90">Pedir presupuesto</a>
+            <a href="#form" class="rounded-xl border border-white/15 px-5 py-3 font-medium text-white hover:bg-white/5">Contactar</a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-2 gap-3 text-sm text-white/80 md:grid-cols-3">
+            <div class="rounded-xl border border-white/10 p-4">
+              <p class="font-semibold text-white">Impresión</p>
+              <p class="text-white/70">Flyers, tarjetas, catálogos</p>
+            </div>
+            <div class="rounded-xl border border-white/10 p-4">
+              <p class="font-semibold text-white">Gran formato</p>
+              <p class="text-white/70">Vinilos, lonas, rótulos</p>
+            </div>
+            <div class="rounded-xl border border-white/10 p-4">
+              <p class="font-semibold text-white">Packaging</p>
+              <p class="text-white/70">Pegatinas, cajas, bolsas</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <h2 class="text-xl font-semibold">Pide tu presupuesto hoy</h2>
+          <p class="mt-2 text-sm text-white/70">
+            Respuesta lo antes posible. Si tienes archivo, lo puedes enviar luego por email/WhatsApp.
+          </p>
+
+          <form id="form" class="mt-6 grid gap-3" action="/api/request" method="POST">
+            <!-- honeypot anti-bot -->
+            <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+
+            <div class="grid gap-3 md:grid-cols-2">
+              <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 outline-none focus:border-white/30"
+                name="name" required placeholder="Nombre" />
+              <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 outline-none focus:border-white/30"
+                name="phone" placeholder="Teléfono" />
+            </div>
+
+            <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 outline-none focus:border-white/30"
+              name="email" type="email" required placeholder="Email" />
+
+            <select class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 outline-none focus:border-white/30"
+              name="type">
+              <option value="imprenta">Imprenta</option>
+              <option value="carteleria">Cartelería / Gran formato</option>
+              <option value="packaging">Packaging</option>
+              <option value="otro" selected>Otro</option>
+            </select>
+
+            <textarea class="min-h-[120px] w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 outline-none focus:border-white/30"
+              name="message" required placeholder="Cuéntanos qué necesitas (medidas, cantidades, acabado, fecha...)"></textarea>
+
+            <label class="flex items-start gap-2 text-sm text-white/75">
+              <input class="mt-1" type="checkbox" required />
+              <span>
+                He leído y acepto el <a class="underline hover:text-white" href="/legal/privacidad">tratamiento de datos</a>.
+              </span>
+            </label>
+
+            <!-- Captcha simple tipo “8+1” como la web actual -->
+            <div class="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950 px-4 py-3">
+              <span class="text-sm text-white/80">8 + 1 =</span>
+              <input class="w-24 rounded-lg border border-white/10 bg-slate-950 px-3 py-2 outline-none focus:border-white/30"
+                name="captcha" required placeholder="9" />
+            </div>
+
+            <button class="rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90" type="submit">
+              Enviar solicitud
+            </button>
+          </form>
+
+          <p class="mt-3 text-xs text-white/60">
+            También puedes escribir por WhatsApp. Respuesta rápida en horario comercial.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="border-t border-white/10 bg-slate-950">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <h2 class="text-2xl font-semibold">Servicios</h2>
+        <p class="mt-2 text-white/70">Todo lo que necesitas para tu negocio, eventos o marca.</p>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 class="text-lg font-semibold">Imprenta</h3>
+            <ul class="mt-3 space-y-1 text-sm text-white/75">
+              <li>• Tarjetas de visita</li>
+              <li>• Flyers / folletos</li>
+              <li>• Trípticos / dípticos</li>
+              <li>• Catálogos</li>
+            </ul>
+            <a class="mt-5 inline-block text-sm underline hover:text-white" href="/presupuesto">Pedir presupuesto</a>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 class="text-lg font-semibold">Cartelería</h3>
+            <ul class="mt-3 space-y-1 text-sm text-white/75">
+              <li>• Vinilos</li>
+              <li>• Lonas</li>
+              <li>• Rótulos</li>
+              <li>• Gran formato</li>
+            </ul>
+            <a class="mt-5 inline-block text-sm underline hover:text-white" href="/presupuesto">Pedir presupuesto</a>
+          </div>
+
+          <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+            <h3 class="text-lg font-semibold">Packaging</h3>
+            <ul class="mt-3 space-y-1 text-sm text-white/75">
+              <li>• Pegatinas</li>
+              <li>• Bolsas</li>
+              <li>• Cajas</li>
+              <li>• Etiquetas</li>
+            </ul>
+            <a class="mt-5 inline-block text-sm underline hover:text-white" href="/presupuesto">Pedir presupuesto</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="border-t border-white/10">
+      <div class="mx-auto max-w-6xl px-4 py-14">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-8 md:flex md:items-center md:justify-between">
+          <div>
+            <h2 class="text-xl font-semibold">Newsletter</h2>
+            <p class="mt-2 text-sm text-white/70">Ofertas, novedades y tips de impresión (sin spam).</p>
+          </div>
+
+          <form class="mt-6 flex gap-3 md:mt-0" action="/api/newsletter" method="POST">
+            <input class="w-64 rounded-xl border border-white/10 bg-slate-950 px-4 py-3 outline-none focus:border-white/30"
+              name="email" type="email" required placeholder="Tu email" />
+            <button class="rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90" type="submit">
+              Suscribirme
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- WhatsApp flotante -->
+  <a
+    href="https://wa.me/34TU_NUMERO_AQUI"
+    target="_blank"
+    rel="noopener"
+    class="fixed bottom-5 right-5 rounded-full bg-white px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg hover:bg-white/90"
+  >
+    WhatsApp
+  </a>
+
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-6xl px-4 py-10 text-sm text-white/70">
+      <div class="flex flex-wrap gap-3">
+        <a class="underline hover:text-white" href="/legal/aviso-legal">Aviso legal</a>
+        <a class="underline hover:text-white" href="/legal/privacidad">Privacidad</a>
+        <a class="underline hover:text-white" href="/legal/cookies">Cookies</a>
+        <a class="underline hover:text-white" href="/admin/login">Admin</a>
+      </div>
+      <p class="mt-4">© {new Date().getFullYear()} Imprenta Boadilla</p>
+    </div>
+  </footer>
+</BaseLayout>

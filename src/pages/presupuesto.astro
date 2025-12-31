@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Presupuesto — Imprenta Boadilla">
+  <main class="mx-auto max-w-3xl px-4 py-14">
+    <a class="text-sm text-white/70 underline hover:text-white" href="/">← Volver</a>
+    <h1 class="mt-4 text-3xl font-bold">Pedir presupuesto</h1>
+    <p class="mt-2 text-white/70">Indica cantidades, medidas, acabados y fecha.</p>
+
+    <form class="mt-8 grid gap-3" action="/api/request" method="POST">
+      <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+
+      <div class="grid gap-3 md:grid-cols-2">
+        <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+          name="name" required placeholder="Nombre" />
+        <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+          name="phone" placeholder="Teléfono" />
+      </div>
+
+      <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+        name="email" type="email" required placeholder="Email" />
+
+      <select class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+        name="type">
+        <option value="imprenta">Imprenta</option>
+        <option value="carteleria">Cartelería / Gran formato</option>
+        <option value="packaging">Packaging</option>
+        <option value="otro" selected>Otro</option>
+      </select>
+
+      <textarea class="min-h-[160px] w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+        name="message" required placeholder="Detalles del trabajo..."></textarea>
+
+      <label class="flex items-start gap-2 text-sm text-white/75">
+        <input class="mt-1" type="checkbox" required />
+        <span>He leído y acepto la <a class="underline hover:text-white" href="/legal/privacidad">política de privacidad</a>.</span>
+      </label>
+
+      <div class="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950 px-4 py-3">
+        <span class="text-sm text-white/80">8 + 1 =</span>
+        <input class="w-24 rounded-lg border border-white/10 bg-slate-950 px-3 py-2"
+          name="captcha" required placeholder="9" />
+      </div>
+
+      <button class="rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90" type="submit">
+        Enviar
+      </button>
+    </form>
+  </main>
+</BaseLayout>

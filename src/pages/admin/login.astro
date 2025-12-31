@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const e = Astro.url.searchParams.get("e");
+---
+
+<BaseLayout title="Admin Login">
+  <main class="mx-auto max-w-md px-4 py-20">
+    <h1 class="text-3xl font-bold">Admin</h1>
+    <p class="mt-2 text-white/70">Acceso privado</p>
+
+    {e ? <p class="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
+      Login incorrecto
+    </p> : null}
+
+    <form class="mt-6 grid gap-3" method="POST" action="/api/login">
+      <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+        name="email" type="email" required placeholder="Email" />
+      <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+        name="password" type="password" required placeholder="Password" />
+      <button class="rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90" type="submit">
+        Entrar
+      </button>
+    </form>
+  </main>
+</BaseLayout>

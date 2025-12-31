@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Contacto — Imprenta Boadilla">
+  <main class="mx-auto max-w-4xl px-4 py-14">
+    <a class="text-sm text-white/70 underline hover:text-white" href="/">← Volver</a>
+    <h1 class="mt-4 text-3xl font-bold">Contacto</h1>
+    <p class="mt-2 text-white/70">
+      Llámanos o escríbenos por WhatsApp. También puedes usar el formulario.
+    </p>
+
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h2 class="text-lg font-semibold">Datos</h2>
+        <p class="mt-3 text-white/80">📍 Boadilla del Monte</p>
+        <p class="mt-2 text-white/80">📞 +34 TU_TELEFONO</p>
+        <p class="mt-2 text-white/80">✉️ tuemail@dominio.com</p>
+
+        <a class="mt-5 inline-block rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90"
+          href="https://wa.me/34TU_NUMERO_AQUI" target="_blank" rel="noopener">
+          Abrir WhatsApp
+        </a>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+        <h2 class="text-lg font-semibold">Formulario</h2>
+        <form class="mt-4 grid gap-3" action="/api/request" method="POST">
+          <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+          <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+            name="name" required placeholder="Nombre" />
+          <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+            name="email" type="email" required placeholder="Email" />
+          <textarea class="min-h-[120px] w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
+            name="message" required placeholder="Mensaje"></textarea>
+
+          <input type="hidden" name="type" value="otro" />
+
+          <div class="flex items-center gap-3 rounded-xl border border-white/10 bg-slate-950 px-4 py-3">
+            <span class="text-sm text-white/80">8 + 1 =</span>
+            <input class="w-24 rounded-lg border border-white/10 bg-slate-950 px-3 py-2"
+              name="captcha" required placeholder="9" />
+          </div>
+
+          <button class="rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90" type="submit">
+            Enviar
+          </button>
+        </form>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
