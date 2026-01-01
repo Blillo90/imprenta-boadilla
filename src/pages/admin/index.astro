@@ -20,9 +20,7 @@ const status = url.searchParams.get("status") ?? "all";
 
 let q = supabase
   .from("requests")
-  .select(
-    "id,created_at,name,email,phone,type,source,contacted,contacted_at,notes,message"
-  )
+  .select("id,created_at,name,email,phone,type,contacted,contacted_at,notes,message")
   .order("created_at", { ascending: false });
 
 if (status === "pending") q = q.eq("contacted", false);
@@ -30,6 +28,8 @@ if (status === "done") q = q.eq("contacted", true);
 
 const { data: requests, error } = await q;
 if (error) console.log(error);
+
+const formatDate = (d: string) => new Date(d).toLocaleString();
 ---
 
 <BaseLayout title="Admin — Solicitudes">
@@ -68,10 +68,7 @@ if (error) console.log(error);
       </div>
 
       <form method="POST" action="/api/logout">
-        <button
-          class="cursor-pointer rounded-xl border border-white/15 px-5 py-3 hover:bg-white/5"
-          type="submit"
-        >
+        <button class="cursor-pointer rounded-xl border border-white/15 px-5 py-3 hover:bg-white/5" type="submit">
           Cerrar sesión
         </button>
       </form>
@@ -85,92 +82,136 @@ if (error) console.log(error);
             data-request-card
             data-id={r.id}
           >
-            <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-              {/* IZQUIERDA */}
-              <div class="min-w-0">
-                <div class="flex flex-wrap items-center gap-2">
-                  <h2 class="text-lg font-semibold">{r.name}</h2>
-                  <span class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80">
-                    {r.type}
-                  </span>
+            {/* Header */}
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2">
+                <h2 class="text-lg font-semibold">{r.name}</h2>
 
-                  <span
-                    data-pill
-                    class={`rounded-full px-3 py-1 text-xs ${
-                      r.contacted
-                        ? "bg-emerald-500/15 text-emerald-200"
-                        : "bg-amber-500/15 text-amber-200"
-                    }`}
-                  >
-                    {r.contacted ? "✅ Contactado" : "⏳ Pendiente"}
-                  </span>
-                </div>
+                <span class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80">
+                  {r.type}
+                </span>
 
-                <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/75">
-                  <span>{r.email}</span>
-                  <span>{r.phone ?? "-"}</span>
-                  <span class="text-white/60">{new Date(r.created_at).toLocaleString()}</span>
-                </div>
-
-                <p class="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-white/85">
-                  {r.message}
-                </p>
+                <span
+                  data-pill
+                  class={`rounded-full px-3 py-1 text-xs ${
+                    r.contacted
+                      ? "bg-emerald-500/15 text-emerald-200"
+                      : "bg-amber-500/15 text-amber-200"
+                  }`}
+                >
+                  {r.contacted ? "✅ Contactado" : "⏳ Pendiente"}
+                </span>
               </div>
 
-              {/* DERECHA */}
-              <div class="w-full shrink-0 md:w-[320px]">
-                <form
-                  method="POST"
-                  action="/api/requests/contacted"
-                  class="flex items-center gap-2"
-                  data-ajax="contacted"
-                  data-id={r.id}
-                >
-                  <input type="hidden" name="id" value={r.id} />
-                  <input type="hidden" name="contacted" value={(!r.contacted).toString()} />
-                  <button
-                    class={`cursor-pointer w-full rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
-                      r.contacted ? "bg-emerald-500/10" : "bg-white/5"
-                    }`}
-                    type="submit"
+              <div class="text-xs text-white/55">
+                Recibido: <span class="text-white/75">{formatDate(r.created_at)}</span>
+              </div>
+            </div>
+
+            {/* Body */}
+            <div class="mt-4 grid gap-4 md:grid-cols-[1fr_320px]">
+              {/* IZQ: info + mensaje */}
+              <div class="min-w-0">
+                <div class="rounded-xl border border-white/10 bg-black/10 p-4">
+                  <h3 class="text-sm font-semibold text-white/85">Datos del cliente</h3>
+
+                  <dl class="mt-3 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+                    <div class="flex gap-2">
+                      <dt class="w-20 shrink-0 text-white/50">Nombre:</dt>
+                      <dd class="text-white/85">{r.name}</dd>
+                    </div>
+
+                    <div class="flex gap-2">
+                      <dt class="w-20 shrink-0 text-white/50">Tipo:</dt>
+                      <dd class="text-white/85">{r.type}</dd>
+                    </div>
+
+                    <div class="flex gap-2 sm:col-span-2">
+                      <dt class="w-20 shrink-0 text-white/50">Email:</dt>
+                      <dd class="text-white/85 break-all">{r.email}</dd>
+                    </div>
+
+                    <div class="flex gap-2">
+                      <dt class="w-20 shrink-0 text-white/50">Teléfono:</dt>
+                      <dd class="text-white/85">{r.phone ?? "-"}</dd>
+                    </div>
+
+                    <div class="flex gap-2">
+                      <dt class="w-20 shrink-0 text-white/50">Estado:</dt>
+                      <dd class="text-white/85">{r.contacted ? "Contactado" : "Pendiente"}</dd>
+                    </div>
+                  </dl>
+                </div>
+
+                <div class="mt-3 rounded-xl border border-white/10 bg-black/10 p-4">
+                  <h3 class="text-sm font-semibold text-white/85">Mensaje</h3>
+                  <p class="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-white/85">
+                    {r.message}
+                  </p>
+                </div>
+              </div>
+
+              {/* DER: acciones */}
+              <div class="w-full shrink-0">
+                <div class="rounded-xl border border-white/10 bg-black/10 p-4">
+                  <h3 class="text-sm font-semibold text-white/85">Acciones</h3>
+
+                  <form
+                    method="POST"
+                    action="/api/requests/contacted"
+                    class="mt-3"
+                    data-ajax="contacted"
+                    data-id={r.id}
                   >
-                    {r.contacted ? "Marcar pendiente" : "Marcar contactado"}
-                  </button>
-                  <span class="text-xs text-white/60" data-status></span>
-                </form>
+                    <input type="hidden" name="id" value={r.id} />
+                    <input type="hidden" name="contacted" value={(!r.contacted).toString()} />
 
-                <form
-                  method="POST"
-                  action="/api/requests/notes"
-                  class="mt-3"
-                  data-ajax="notes"
-                  data-id={r.id}
-                >
-                  <input type="hidden" name="id" value={r.id} />
-                  <label class="mb-2 block text-xs text-white/60">Notas internas</label>
-
-                  <textarea
-                    name="notes"
-                    rows="4"
-                    class="w-full rounded-xl border border-white/10 bg-black/20 p-3 text-sm text-white/90 placeholder:text-white/40"
-                    placeholder="Escribe notas para esta solicitud…"
-                  >{r.notes ?? ""}</textarea>
-
-                  <div class="mt-2 flex items-center justify-between gap-2">
                     <button
-                      class="cursor-pointer rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
+                      class={`cursor-pointer w-full rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+                        r.contacted ? "bg-emerald-500/10" : "bg-white/5"
+                      }`}
                       type="submit"
                     >
-                      Guardar notas
+                      {r.contacted ? "Marcar pendiente" : "Marcar contactado"}
                     </button>
 
-                    <span class="text-xs text-white/60" data-status></span>
+                    <div class="mt-2 flex items-center justify-between gap-2">
+                      <span class="text-xs text-white/60" data-status></span>
+                      <span class="text-xs text-white/55" data-contacted-at>
+                        {r.contacted_at ? `Contactado: ${formatDate(r.contacted_at)}` : ""}
+                      </span>
+                    </div>
+                  </form>
 
-                    <span class="text-xs text-white/55" data-contacted-at>
-                      {r.contacted_at ? `Contactado: ${new Date(r.contacted_at).toLocaleString()}` : ""}
-                    </span>
-                  </div>
-                </form>
+                  <form
+                    method="POST"
+                    action="/api/requests/notes"
+                    class="mt-4"
+                    data-ajax="notes"
+                    data-id={r.id}
+                  >
+                    <input type="hidden" name="id" value={r.id} />
+                    <label class="mb-2 block text-xs text-white/60">Notas internas</label>
+
+                    <textarea
+                      name="notes"
+                      rows="5"
+                      class="w-full rounded-xl border border-white/10 bg-black/20 p-3 text-sm text-white/90 placeholder:text-white/40"
+                      placeholder="Escribe notas para esta solicitud…"
+                    >{r.notes ?? ""}</textarea>
+
+                    <div class="mt-2 flex items-center justify-between gap-2">
+                      <button
+                        class="cursor-pointer rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
+                        type="submit"
+                      >
+                        Guardar notas
+                      </button>
+
+                      <span class="text-xs text-white/60" data-status></span>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </article>
@@ -211,8 +252,8 @@ if (error) console.log(error);
           : "bg-amber-500/15 text-amber-200");
     }
 
-    function updateContactedAt(card, contacted) {
-      const el = card?.querySelector("[data-contacted-at]");
+    function updateContactedAt(form, contacted) {
+      const el = form.querySelector("[data-contacted-at]");
       if (!el) return;
       el.textContent = contacted ? "Contactado: " + new Date().toLocaleString() : "";
     }
@@ -247,15 +288,12 @@ if (error) console.log(error);
 
         setStatus(form, "Guardado ✓", true);
 
-        // Toggle contacted
         if (form.dataset.ajax === "contacted") {
           const contactedInput = form.querySelector("input[name='contacted']");
           const newContacted = contactedInput ? contactedInput.value === "true" : false;
 
-          // preparar siguiente toggle
           if (contactedInput) contactedInput.value = (!newContacted).toString();
 
-          // actualizar botón
           if (btn) {
             btn.textContent = newContacted ? "Marcar pendiente" : "Marcar contactado";
             btn.classList.toggle("bg-emerald-500/10", newContacted);
@@ -264,7 +302,7 @@ if (error) console.log(error);
 
           const card = getCard(form);
           updatePill(card, newContacted);
-          updateContactedAt(card, newContacted);
+          updateContactedAt(form, newContacted);
 
           if (card && shouldRemoveFromList(newContacted)) {
             card.style.opacity = "0.4";
@@ -277,16 +315,11 @@ if (error) console.log(error);
       } finally {
         if (btn) {
           btn.disabled = false;
-
-          // notes: vuelve al texto anterior
           if (form.dataset.ajax !== "contacted") btn.textContent = prevText;
-
-          // contacted: ya lo seteamos arriba; por si acaso:
           if (form.dataset.ajax === "contacted" && btn.textContent === "Guardando…") {
             btn.textContent = prevText;
           }
         }
-
         setTimeout(() => setStatus(form, ""), 2000);
       }
     }
