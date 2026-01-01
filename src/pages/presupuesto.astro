@@ -2,44 +2,100 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Presupuesto — Imprenta Boadilla">
-  <main class="mx-auto max-w-3xl px-4 py-14">
-    <a class="text-sm text-white/70 underline hover:text-white" href="/">← Volver</a>
-    <h1 class="mt-4 text-3xl font-bold">Pedir presupuesto</h1>
-    <p class="mt-2 text-white/70">Indica cantidades, medidas, acabados y fecha.</p>
+<BaseLayout
+  title="Pedir presupuesto — Imprenta Boadilla"
+  description="Solicita presupuesto de imprenta en Boadilla del Monte: cantidades, medidas, acabados y fecha. Respuesta rápida."
+>
+  <section class="mx-auto max-w-3xl px-4 py-14">
+    <h1 class="text-3xl font-bold tracking-tight">Pedir presupuesto</h1>
+    <p class="mt-2 text-slate-600">Indica cantidades, medidas, acabados y fecha. Cuanta más info, más rápido.</p>
 
-    <form class="mt-8 grid gap-3" action="/api/request" method="POST">
-      <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+    <div class="mt-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      <form class="grid gap-3" action="/api/request" method="POST">
+        <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
 
-      <div class="grid gap-3 md:grid-cols-2">
-        <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
-          name="name" required placeholder="Nombre" />
-        <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
-          name="phone" placeholder="Teléfono" />
-      </div>
+        <div class="grid gap-3 md:grid-cols-2">
+          <div>
+            <label class="sr-only" for="p_name">Nombre</label>
+            <input
+              id="p_name"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 placeholder:text-slate-400 focus:border-blue-600"
+              name="name"
+              required
+              placeholder="Nombre"
+              autocomplete="name"
+            />
+          </div>
+          <div>
+            <label class="sr-only" for="p_phone">Teléfono</label>
+            <input
+              id="p_phone"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 placeholder:text-slate-400 focus:border-blue-600"
+              name="phone"
+              placeholder="Teléfono"
+              autocomplete="tel"
+              inputmode="tel"
+            />
+          </div>
+        </div>
 
-      <input class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
-        name="email" type="email" required placeholder="Email" />
+        <div>
+          <label class="sr-only" for="p_email">Email</label>
+          <input
+            id="p_email"
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 placeholder:text-slate-400 focus:border-blue-600"
+            name="email"
+            type="email"
+            required
+            placeholder="Email"
+            autocomplete="email"
+          />
+        </div>
 
-      <select class="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
-        name="type">
-        <option value="imprenta">Imprenta</option>
-        <option value="carteleria">Cartelería / Gran formato</option>
-        <option value="packaging">Packaging</option>
-        <option value="otro" selected>Otro</option>
-      </select>
+        <div>
+          <label class="sr-only" for="p_type">Tipo</label>
+          <select
+            id="p_type"
+            class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 focus:border-blue-600"
+            name="type"
+          >
+            <option value="imprenta">Imprenta (tarjetas, flyers...)</option>
+            <option value="carteleria">Cartelería / rotulación</option>
+            <option value="packaging">Packaging / pegatinas</option>
+            <option value="diseno">Diseño</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
 
-      <textarea class="min-h-[160px] w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3"
-        name="message" required placeholder="Detalles del trabajo..."></textarea>
+        <div>
+          <label class="sr-only" for="p_message">Detalles</label>
+          <textarea
+            id="p_message"
+            class="min-h-[180px] w-full rounded-xl border border-slate-200 bg-white px-4 py-3 placeholder:text-slate-400 focus:border-blue-600"
+            name="message"
+            required
+            placeholder="Detalles del trabajo: cantidad, medidas, material/papel, acabado (mate/brillo/laminado), fecha de entrega..."
+          ></textarea>
+        </div>
 
-      <label class="flex items-start gap-2 text-sm text-white/75">
-        <input class="mt-1" type="checkbox" required />
-        <span>He leído y acepto la <a class="underline hover:text-white" href="/legal/privacidad">política de privacidad</a>.</span>
-      </label>
+        <input type="hidden" name="source" value="presupuesto" />
 
-      <button class="rounded-xl bg-white px-5 py-3 font-medium text-slate-950 hover:bg-white/90" type="submit">
-        Enviar
-      </button>
-    </form>
-  </main>
+        <label class="flex items-start gap-2 text-sm text-slate-600">
+          <input class="mt-1" type="checkbox" required />
+          <span>He leído y acepto la <a class="underline hover:text-slate-900" href="/legal/privacidad">política de privacidad</a>.</span>
+        </label>
+
+        <button class="rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700" type="submit">
+          Enviar
+        </button>
+      </form>
+    </div>
+
+    <div class="mt-6 rounded-3xl border border-slate-200 bg-slate-50 p-6">
+      <p class="font-semibold text-slate-900">Tip rápido</p>
+      <p class="mt-2 text-sm text-slate-600">
+        Si tienes un PDF, añade “tamaño final + sangrado” y resolución mínima 300dpi para impresión.
+      </p>
+    </div>
+  </section>
 </BaseLayout>

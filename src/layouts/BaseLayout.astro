@@ -1,6 +1,50 @@
 ---
 import "../styles/global.css";
-const { title = "Imprenta Boadilla" } = Astro.props;
+
+const {
+  title = "Imprenta Boadilla",
+  description = "Imprenta, cartelería, packaging y diseño. Presupuestos rápidos en Boadilla del Monte.",
+} = Astro.props;
+
+const canonical = Astro.url?.href ?? "";
+const siteName = "Imprenta Boadilla";
+
+// ⚠️ Rellena estos datos (frontend-only, no toca backend)
+const BUSINESS = {
+  name: "Imprenta Boadilla",
+  url: canonical ? new URL(canonical).origin : "https://tudominio.com",
+  telephone: "+34 TU_TELEFONO",
+  email: "tuemail@dominio.com",
+  address: {
+    streetAddress: "TU_DIRECCIÓN",
+    addressLocality: "Boadilla del Monte",
+    addressRegion: "Madrid",
+    postalCode: "28660",
+    addressCountry: "ES",
+  },
+  geo: {
+    latitude: "40.4050",
+    longitude: "-3.8790",
+  },
+  openingHours: ["Mo-Fr 09:00-19:00", "Sa 10:00-14:00"],
+  sameAs: [
+    // "https://www.instagram.com/tuusuario",
+    // "https://www.facebook.com/tuempresa"
+  ],
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: BUSINESS.name,
+  url: BUSINESS.url,
+  telephone: BUSINESS.telephone,
+  email: BUSINESS.email,
+  address: { "@type": "PostalAddress", ...BUSINESS.address },
+  geo: { "@type": "GeoCoordinates", ...BUSINESS.geo },
+  openingHours: BUSINESS.openingHours,
+  sameAs: BUSINESS.sameAs,
+};
 ---
 
 <!doctype html>
@@ -8,11 +52,138 @@ const { title = "Imprenta Boadilla" } = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>{title}</title>
-    <meta name="description" content="Imprenta, cartelería, packaging y diseño. Presupuestos rápidos en Boadilla del Monte." />
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <!-- Google Fonts (sin instalar paquetes) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <meta name="robots" content="index,follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
     <link rel="icon" href="/favicon.svg" />
+
+    <script type="application/ld+json">
+      {JSON.stringify(jsonLd)}
+    </script>
   </head>
-  <body class="min-h-screen bg-slate-950 text-white">
-    <slot />
+
+  <body class="min-h-screen bg-white text-slate-900 antialiased">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-slate-900 focus:shadow-lg"
+    >
+      Saltar al contenido
+    </a>
+
+    <header class="sticky top-0 z-40 border-b border-slate-200/70 bg-white/80 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+        <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white">
+            IB
+          </span>
+          <span>Imprenta Boadilla</span>
+        </a>
+
+        <nav class="hidden items-center gap-6 text-sm text-slate-700 md:flex">
+          <a class="hover:text-slate-900" href="/#servicios">Servicios</a>
+          <a class="hover:text-slate-900" href="/#trabajos">Trabajos</a>
+          <a class="hover:text-slate-900" href="/#faq">FAQ</a>
+          <a class="hover:text-slate-900" href="/contacto">Contacto</a>
+          <a
+            class="rounded-xl bg-blue-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-blue-700"
+            href="/presupuesto"
+          >
+            Pedir presupuesto
+          </a>
+        </nav>
+
+        <div class="flex items-center gap-2 md:hidden">
+          <a
+            class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+            href="/contacto"
+          >
+            Contacto
+          </a>
+          <a
+            class="rounded-xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+            href="/presupuesto"
+          >
+            Presupuesto
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <slot />
+    </main>
+
+    <footer class="border-t border-slate-200">
+      <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
+        <div>
+          <p class="text-lg font-semibold">Imprenta Boadilla</p>
+          <p class="mt-2 text-sm text-slate-600">
+            Impresión, cartelería, rotulación, packaging y diseño. Respuesta rápida y trato local.
+          </p>
+          <div class="mt-4 flex flex-wrap gap-3 text-sm">
+            <a class="rounded-lg border border-slate-200 px-3 py-2 hover:bg-slate-50" href="/presupuesto">
+              Pedir presupuesto
+            </a>
+            <a class="rounded-lg border border-slate-200 px-3 py-2 hover:bg-slate-50" href="/contacto">
+              Contacto
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold text-slate-900">Servicios</p>
+          <ul class="mt-3 space-y-2 text-sm text-slate-600">
+            <li><a class="hover:text-slate-900" href="/#servicios">Tarjetas, flyers, catálogos</a></li>
+            <li><a class="hover:text-slate-900" href="/#servicios">Vinilos, lonas, rótulos</a></li>
+            <li><a class="hover:text-slate-900" href="/#servicios">Packaging y pegatinas</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="text-sm font-semibold text-slate-900">Datos</p>
+          <ul class="mt-3 space-y-2 text-sm text-slate-600">
+            <li>📍 {BUSINESS.address.addressLocality}, {BUSINESS.address.addressRegion}</li>
+            <li>📞 <a class="hover:text-slate-900" href={`tel:${BUSINESS.telephone}`}>{BUSINESS.telephone}</a></li>
+            <li>✉️ <a class="hover:text-slate-900" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-200">
+        <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
+          <div class="flex flex-wrap gap-3">
+            <a class="underline hover:text-slate-900" href="/legal/aviso-legal">Aviso legal</a>
+            <a class="underline hover:text-slate-900" href="/legal/privacidad">Privacidad</a>
+            <a class="underline hover:text-slate-900" href="/legal/cookies">Cookies</a>
+            <a class="underline hover:text-slate-900" href="/admin/login">Admin</a>
+          </div>
+          <p>© {new Date().getFullYear()} Imprenta Boadilla</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
