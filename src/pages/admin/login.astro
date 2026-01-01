@@ -1,61 +1,64 @@
 ---
-import AdminLayout from "../../layouts/AdminLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const e = Astro.url.searchParams.get("e");
 ---
 
-<AdminLayout title="Admin — Login">
-  <section class="mx-auto flex min-h-[70vh] max-w-md items-center">
-    <div class="w-full rounded-3xl border border-white/10 bg-white/5 p-8 shadow-sm">
-      <div class="flex items-center gap-3">
+<BaseLayout title="Admin Login" description="Acceso privado (admin).">
+  <main class="mx-auto max-w-md px-4 py-16">
+    <!-- Card oscura (admin) -->
+    <section class="rounded-3xl border border-slate-200 bg-slate-950 p-8 text-slate-100 shadow-sm">
+      <header class="flex items-center gap-3">
         <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-white font-bold">
           IB
         </span>
         <div>
           <h1 class="text-xl font-bold text-white">Admin</h1>
-          <p class="text-sm text-slate-300">Acceso al panel de solicitudes</p>
+          <p class="text-sm text-slate-300">Acceso privado</p>
         </div>
-      </div>
+      </header>
 
-      <form class="mt-8 grid gap-4" method="POST" action="/api/admin/login">
-        <!-- Honeypot anti-spam -->
-        <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+      {e ? (
+        <p class="mt-5 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-200">
+          Login incorrecto
+        </p>
+      ) : null}
 
-        <div class="grid gap-2">
-          <label for="email" class="text-sm font-semibold text-slate-200">Email</label>
+      <form class="mt-6 grid gap-3" method="POST" action="/api/login">
+        <label class="grid gap-2">
+          <span class="text-sm font-semibold text-slate-200">Email</span>
           <input
-            id="email"
+            class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-blue-500"
             name="email"
             type="email"
             required
             autocomplete="email"
-            class="w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-blue-500"
-            placeholder="tuemail@dominio.com"
+            placeholder="Email"
           />
-        </div>
+        </label>
 
-        <div class="grid gap-2">
-          <label for="password" class="text-sm font-semibold text-slate-200">Contraseña</label>
+        <label class="grid gap-2">
+          <span class="text-sm font-semibold text-slate-200">Password</span>
           <input
-            id="password"
+            class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-blue-500"
             name="password"
             type="password"
             required
             autocomplete="current-password"
-            class="w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-slate-100 placeholder:text-slate-500 focus:border-blue-500"
-            placeholder="••••••••"
+            placeholder="Password"
           />
-        </div>
+        </label>
 
         <button
+          class="mt-2 rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
           type="submit"
-          class="mt-2 w-full rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
         >
           Entrar
         </button>
 
-        <p class="text-center text-xs text-slate-400">
-          Esta página no se indexa (noindex).
+        <p class="mt-2 text-xs text-slate-400">
+          Panel privado. Si no eres administrador, vuelve a la web.
         </p>
       </form>
-    </div>
-  </section>
-</AdminLayout>
+    </section>
+  </main>
+</BaseLayout>
