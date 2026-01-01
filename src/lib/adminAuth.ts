@@ -10,20 +10,20 @@ export function getUserSupabaseWithToken(token: string) {
   });
 }
 
-export async function assertIsAdmin(token: string): Promise<{ ok: true; userId: string } | { ok: false }> {
+export async function assertIsAdmin(token: string) {
   const supabase = getUserSupabaseWithToken(token);
 
   const { data: userRes } = await supabase.auth.getUser();
-  const userId = userRes?.user?.id;
-  if (!userId) return { ok: false };
+  const user = userRes?.user;
+  if (!user) return { ok: false };
 
   const { data: profile, error } = await supabase
     .from("profiles")
-    .select("is_admin")
-    .eq("id", userId)
+    .select("role")
+    .eq("id", user.id)
     .single();
 
-  if (error || !profile?.is_admin) return { ok: false };
+  if (error || profile?.role !== "admin") return { ok: false };
 
-  return { ok: true, userId };
+  return { ok: true, userId: user.id };
 }
