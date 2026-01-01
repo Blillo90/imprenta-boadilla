@@ -33,7 +33,7 @@ if (error) console.log(error);
 ---
 
 <BaseLayout title="Admin — Solicitudes">
-  <main class="mx-auto max-w-6xl px-4 py-14">
+  <main class="mx-auto max-w-6xl px-4 py-14" data-filter={status}>
     <div class="flex items-center justify-between gap-4">
       <div>
         <h1 class="text-3xl font-bold">Solicitudes</h1>
@@ -42,7 +42,7 @@ if (error) console.log(error);
         <nav class="mt-4 flex flex-wrap gap-2">
           <a
             href="/admin?status=all"
-            class={`rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+            class={`cursor-pointer rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
               status === "all" ? "bg-white/10" : ""
             }`}
           >
@@ -50,7 +50,7 @@ if (error) console.log(error);
           </a>
           <a
             href="/admin?status=pending"
-            class={`rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+            class={`cursor-pointer rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
               status === "pending" ? "bg-white/10" : ""
             }`}
           >
@@ -58,7 +58,7 @@ if (error) console.log(error);
           </a>
           <a
             href="/admin?status=done"
-            class={`rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+            class={`cursor-pointer rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
               status === "done" ? "bg-white/10" : ""
             }`}
           >
@@ -68,7 +68,10 @@ if (error) console.log(error);
       </div>
 
       <form method="POST" action="/api/logout">
-        <button class="rounded-xl border border-white/15 px-5 py-3 hover:bg-white/5" type="submit">
+        <button
+          class="cursor-pointer rounded-xl border border-white/15 px-5 py-3 hover:bg-white/5"
+          type="submit"
+        >
           Cerrar sesión
         </button>
       </form>
@@ -77,8 +80,13 @@ if (error) console.log(error);
     <div class="mt-8 grid gap-4">
       {requests?.length ? (
         requests.map((r) => (
-          <article class="rounded-2xl border border-white/10 bg-white/[0.03] p-5" data-request-card data-id={r.id}>
+          <article
+            class="rounded-2xl border border-white/10 bg-white/[0.03] p-5"
+            data-request-card
+            data-id={r.id}
+          >
             <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+              {/* IZQUIERDA */}
               <div class="min-w-0">
                 <div class="flex flex-wrap items-center gap-2">
                   <h2 class="text-lg font-semibold">{r.name}</h2>
@@ -108,17 +116,22 @@ if (error) console.log(error);
                   {r.message}
                 </p>
 
-                <div class="mt-3 text-xs text-white/55">
-                  {r.ip ? <span>IP: {r.ip}</span> : <span>IP: -</span>}
-                  <span class="mx-2">·</span>
-                  <span>
-                    UA: {r.user_agent ? String(r.user_agent).slice(0, 80) : "-"}
-                    {r.user_agent && String(r.user_agent).length > 80 ? "…" : ""}
-                  </span>
-                </div>
+                {(r.ip || r.user_agent) && (
+                  <div class="mt-3 text-xs text-white/50">
+                    {r.ip && <span>IP: {r.ip}</span>}
+                    {r.ip && r.user_agent && <span class="mx-2">·</span>}
+                    {r.user_agent && (
+                      <span>
+                        UA: {String(r.user_agent).slice(0, 60)}
+                        {String(r.user_agent).length > 60 ? "…" : ""}
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
 
-              <div class="w-full md:w-[320px] shrink-0">
+              {/* DERECHA */}
+              <div class="w-full shrink-0 md:w-[320px]">
                 <form
                   method="POST"
                   action="/api/requests/contacted"
@@ -129,7 +142,7 @@ if (error) console.log(error);
                   <input type="hidden" name="id" value={r.id} />
                   <input type="hidden" name="contacted" value={(!r.contacted).toString()} />
                   <button
-                    class={`w-full rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+                    class={`cursor-pointer w-full rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
                       r.contacted ? "bg-emerald-500/10" : "bg-white/5"
                     }`}
                     type="submit"
@@ -147,7 +160,8 @@ if (error) console.log(error);
                   data-id={r.id}
                 >
                   <input type="hidden" name="id" value={r.id} />
-                  <label class="block text-xs text-white/60 mb-2">Notas internas</label>
+                  <label class="mb-2 block text-xs text-white/60">Notas internas</label>
+
                   <textarea
                     name="notes"
                     rows="4"
@@ -157,7 +171,7 @@ if (error) console.log(error);
 
                   <div class="mt-2 flex items-center justify-between gap-2">
                     <button
-                      class="rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
+                      class="cursor-pointer rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
                       type="submit"
                     >
                       Guardar notas
@@ -165,13 +179,9 @@ if (error) console.log(error);
 
                     <span class="text-xs text-white/60" data-status></span>
 
-                    {r.contacted_at ? (
-                      <span class="text-xs text-white/55" data-contacted-at>
-                        Contactado: {new Date(r.contacted_at).toLocaleString()}
-                      </span>
-                    ) : (
-                      <span class="text-xs text-white/55" data-contacted-at></span>
-                    )}
+                    <span class="text-xs text-white/55" data-contacted-at>
+                      {r.contacted_at ? `Contactado: ${new Date(r.contacted_at).toLocaleString()}` : ""}
+                    </span>
                   </div>
                 </form>
               </div>
@@ -192,10 +202,10 @@ if (error) console.log(error);
 
     function setStatus(form, text, ok = true) {
       const el = form.querySelector("[data-status]");
-     if (!el) return;
+      if (!el) return;
       el.textContent = text;
       el.className = ok ? "text-xs text-emerald-200" : "text-xs text-red-200";
-   }
+    }
 
     function getCard(form) {
       const id = form.dataset.id;
@@ -217,12 +227,7 @@ if (error) console.log(error);
     function updateContactedAt(card, contacted) {
       const el = card?.querySelector("[data-contacted-at]");
       if (!el) return;
-      if (!contacted) {
-        el.textContent = "";
-        return;
-      }
-      // Mostramos "ahora" en UI (la DB guarda ISO exacto)
-      el.textContent = "Contactado: " + new Date().toLocaleString();
+      el.textContent = contacted ? "Contactado: " + new Date().toLocaleString() : "";
     }
 
     function shouldRemoveFromList(contacted) {
@@ -255,6 +260,7 @@ if (error) console.log(error);
 
         setStatus(form, "Guardado ✓", true);
 
+        // Toggle contacted
         if (form.dataset.ajax === "contacted") {
           const contactedInput = form.querySelector("input[name='contacted']");
           const newContacted = contactedInput ? contactedInput.value === "true" : false;
@@ -269,12 +275,10 @@ if (error) console.log(error);
             btn.classList.toggle("bg-white/5", !newContacted);
           }
 
-          // actualizar pill + contacted_at en la card
           const card = getCard(form);
           updatePill(card, newContacted);
           updateContactedAt(card, newContacted);
 
-          // si hay filtro activo, quitar la card si ya no encaja
           if (card && shouldRemoveFromList(newContacted)) {
             card.style.opacity = "0.4";
             setTimeout(() => card.remove(), 150);
@@ -286,13 +290,16 @@ if (error) console.log(error);
       } finally {
         if (btn) {
           btn.disabled = false;
-          // si era notes, volvemos al texto original
+
+          // notes: vuelve al texto anterior
           if (form.dataset.ajax !== "contacted") btn.textContent = prevText;
-          // si era contacted, el texto ya lo actualizamos arriba
+
+          // contacted: ya lo seteamos arriba; por si acaso:
           if (form.dataset.ajax === "contacted" && btn.textContent === "Guardando…") {
             btn.textContent = prevText;
           }
         }
+
         setTimeout(() => setStatus(form, ""), 2000);
       }
     }
