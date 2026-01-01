@@ -77,7 +77,7 @@ if (error) console.log(error);
     <div class="mt-8 grid gap-4">
       {requests?.length ? (
         requests.map((r) => (
-          <article class="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+          <article class="rounded-2xl border border-white/10 bg-white/[0.03] p-5" data-request-card data-id={r.id}>
             <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
               <div class="min-w-0">
                 <div class="flex flex-wrap items-center gap-2">
@@ -86,15 +86,16 @@ if (error) console.log(error);
                     {r.type}
                   </span>
 
-                  {r.contacted ? (
-                    <span class="rounded-full bg-emerald-500/15 px-3 py-1 text-xs text-emerald-200">
-                      ✅ Contactado
-                    </span>
-                  ) : (
-                    <span class="rounded-full bg-amber-500/15 px-3 py-1 text-xs text-amber-200">
-                      ⏳ Pendiente
-                    </span>
-                  )}
+                  <span
+                    data-pill
+                    class={`rounded-full px-3 py-1 text-xs ${
+                      r.contacted
+                        ? "bg-emerald-500/15 text-emerald-200"
+                        : "bg-amber-500/15 text-amber-200"
+                    }`}
+                  >
+                    {r.contacted ? "✅ Contactado" : "⏳ Pendiente"}
+                  </span>
                 </div>
 
                 <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/75">
@@ -118,7 +119,13 @@ if (error) console.log(error);
               </div>
 
               <div class="w-full md:w-[320px] shrink-0">
-                <form method="POST" action="/api/requests/contacted" class="flex items-center gap-2">
+                <form
+                  method="POST"
+                  action="/api/requests/contacted"
+                  class="flex items-center gap-2"
+                  data-ajax="contacted"
+                  data-id={r.id}
+                >
                   <input type="hidden" name="id" value={r.id} />
                   <input type="hidden" name="contacted" value={(!r.contacted).toString()} />
                   <button
@@ -129,9 +136,16 @@ if (error) console.log(error);
                   >
                     {r.contacted ? "Marcar pendiente" : "Marcar contactado"}
                   </button>
+                  <span class="text-xs text-white/60" data-status></span>
                 </form>
 
-                <form method="POST" action="/api/requests/notes" class="mt-3">
+                <form
+                  method="POST"
+                  action="/api/requests/notes"
+                  class="mt-3"
+                  data-ajax="notes"
+                  data-id={r.id}
+                >
                   <input type="hidden" name="id" value={r.id} />
                   <label class="block text-xs text-white/60 mb-2">Notas internas</label>
                   <textarea
@@ -149,11 +163,15 @@ if (error) console.log(error);
                       Guardar notas
                     </button>
 
+                    <span class="text-xs text-white/60" data-status></span>
+
                     {r.contacted_at ? (
-                      <span class="text-xs text-white/55">
+                      <span class="text-xs text-white/55" data-contacted-at>
                         Contactado: {new Date(r.contacted_at).toLocaleString()}
                       </span>
-                    ) : null}
+                    ) : (
+                      <span class="text-xs text-white/55" data-contacted-at></span>
+                    )}
                   </div>
                 </form>
               </div>
@@ -167,4 +185,124 @@ if (error) console.log(error);
       )}
     </div>
   </main>
+
+  <script is:inline>
+    const CURRENT_FILTER =
+      document.querySelector("main[data-filter]")?.dataset.filter || "all";
+
+    function setStatus(form, text, ok = true) {
+      const el = form.querySelector("[data-status]");
+     if (!el) return;
+      el.textContent = text;
+      el.className = ok ? "text-xs text-emerald-200" : "text-xs text-red-200";
+   }
+
+    function getCard(form) {
+      const id = form.dataset.id;
+      if (!id) return null;
+      return document.querySelector(`[data-request-card][data-id="${id}"]`);
+    }
+
+    function updatePill(card, contacted) {
+      const pill = card?.querySelector("[data-pill]");
+      if (!pill) return;
+      pill.textContent = contacted ? "✅ Contactado" : "⏳ Pendiente";
+      pill.className =
+        "rounded-full px-3 py-1 text-xs " +
+        (contacted
+          ? "bg-emerald-500/15 text-emerald-200"
+          : "bg-amber-500/15 text-amber-200");
+    }
+
+    function updateContactedAt(card, contacted) {
+      const el = card?.querySelector("[data-contacted-at]");
+      if (!el) return;
+      if (!contacted) {
+        el.textContent = "";
+        return;
+      }
+      // Mostramos "ahora" en UI (la DB guarda ISO exacto)
+      el.textContent = "Contactado: " + new Date().toLocaleString();
+    }
+
+    function shouldRemoveFromList(contacted) {
+      if (CURRENT_FILTER === "pending") return contacted === true;
+      if (CURRENT_FILTER === "done") return contacted === false;
+      return false;
+    }
+
+    async function postForm(form) {
+      const btn = form.querySelector("button[type='submit']");
+      const prevText = btn ? btn.textContent : "";
+
+      try {
+        setStatus(form, "Guardando…", true);
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Guardando…";
+        }
+
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "text/plain" },
+        });
+
+        if (!res.ok) {
+          const t = await res.text().catch(() => "");
+          throw new Error(t || `HTTP ${res.status}`);
+        }
+
+        setStatus(form, "Guardado ✓", true);
+
+        if (form.dataset.ajax === "contacted") {
+          const contactedInput = form.querySelector("input[name='contacted']");
+          const newContacted = contactedInput ? contactedInput.value === "true" : false;
+
+          // preparar siguiente toggle
+          if (contactedInput) contactedInput.value = (!newContacted).toString();
+
+          // actualizar botón
+          if (btn) {
+            btn.textContent = newContacted ? "Marcar pendiente" : "Marcar contactado";
+            btn.classList.toggle("bg-emerald-500/10", newContacted);
+            btn.classList.toggle("bg-white/5", !newContacted);
+          }
+
+          // actualizar pill + contacted_at en la card
+          const card = getCard(form);
+          updatePill(card, newContacted);
+          updateContactedAt(card, newContacted);
+
+          // si hay filtro activo, quitar la card si ya no encaja
+          if (card && shouldRemoveFromList(newContacted)) {
+            card.style.opacity = "0.4";
+            setTimeout(() => card.remove(), 150);
+          }
+        }
+      } catch (e) {
+        console.error(e);
+        setStatus(form, "Error al guardar", false);
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          // si era notes, volvemos al texto original
+          if (form.dataset.ajax !== "contacted") btn.textContent = prevText;
+          // si era contacted, el texto ya lo actualizamos arriba
+          if (form.dataset.ajax === "contacted" && btn.textContent === "Guardando…") {
+            btn.textContent = prevText;
+          }
+        }
+        setTimeout(() => setStatus(form, ""), 2000);
+      }
+    }
+
+    document.addEventListener("submit", (ev) => {
+      const form = ev.target;
+      if (!(form instanceof HTMLFormElement)) return;
+      if (!form.dataset.ajax) return;
+      ev.preventDefault();
+      postForm(form);
+    });
+  </script>
 </BaseLayout>
