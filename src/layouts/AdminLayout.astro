@@ -1,0 +1,40 @@
+---
+import "../styles/global.css";
+
+const { title = "Admin — Imprenta Boadilla" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+
+  <body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <header class="sticky top-0 z-40 border-b border-white/10 bg-slate-950/70 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+        <a href="/" class="flex items-center gap-2 font-semibold tracking-tight text-slate-100">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white">IB</span>
+          <span>Imprenta Boadilla</span>
+        </a>
+
+        <nav class="flex items-center gap-3 text-sm">
+          <a class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10" href="/admin">
+            Solicitudes
+          </a>
+          <a class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10" href="/presupuesto">
+            Ver web
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-10">
+      <slot />
+    </main>
+  </body>
+</html>

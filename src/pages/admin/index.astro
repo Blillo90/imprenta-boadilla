@@ -1,5 +1,5 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import AdminLayout from "../../layouts/AdminLayout.astro";
 import { createClient } from "@supabase/supabase-js";
 
 const token = Astro.cookies.get("sb_access_token")?.value;
@@ -32,7 +32,7 @@ if (error) console.log(error);
 const formatDate = (d: string) => new Date(d).toLocaleString();
 ---
 
-<BaseLayout title="Admin — Solicitudes">
+<AdminLayout title="Admin — Solicitudes">
   <main class="mx-auto max-w-6xl px-4 py-14" data-filter={status}>
     <div class="flex items-center justify-between gap-4">
       <div>
@@ -332,4 +332,4 @@ const formatDate = (d: string) => new Date(d).toLocaleString();
       postForm(form);
     });
   </script>
-</BaseLayout>
+</AdminLayout>
