@@ -14,11 +14,21 @@ const supabase = createClient(
   }
 );
 
-const { data: requests, error } = await supabase
+// Filtro por estado (?status=pending | done | all)
+const url = new URL(Astro.request.url);
+const status = url.searchParams.get("status") ?? "all";
+
+let q = supabase
   .from("requests")
-  .select("id,created_at,name,email,phone,type,status,contacted,message")
+  .select(
+    "id,created_at,name,email,phone,type,source,contacted,contacted_at,notes,ip,user_agent,message"
+  )
   .order("created_at", { ascending: false });
 
+if (status === "pending") q = q.eq("contacted", false);
+if (status === "done") q = q.eq("contacted", true);
+
+const { data: requests, error } = await q;
 if (error) console.log(error);
 ---
 
@@ -28,7 +38,35 @@ if (error) console.log(error);
       <div>
         <h1 class="text-3xl font-bold">Solicitudes</h1>
         <p class="mt-2 text-white/70">Contactos y presupuestos recibidos</p>
+
+        <nav class="mt-4 flex flex-wrap gap-2">
+          <a
+            href="/admin?status=all"
+            class={`rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+              status === "all" ? "bg-white/10" : ""
+            }`}
+          >
+            Todas
+          </a>
+          <a
+            href="/admin?status=pending"
+            class={`rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+              status === "pending" ? "bg-white/10" : ""
+            }`}
+          >
+            Pendientes
+          </a>
+          <a
+            href="/admin?status=done"
+            class={`rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+              status === "done" ? "bg-white/10" : ""
+            }`}
+          >
+            Contactadas
+          </a>
+        </nav>
       </div>
+
       <form method="POST" action="/api/logout">
         <button class="rounded-xl border border-white/15 px-5 py-3 hover:bg-white/5" type="submit">
           Cerrar sesión
@@ -36,37 +74,97 @@ if (error) console.log(error);
       </form>
     </div>
 
-    <div class="mt-8 overflow-x-auto rounded-2xl border border-white/10">
-      <table class="min-w-full text-sm">
-        <thead class="bg-white/5 text-white/80">
-          <tr>
-            <th class="px-4 py-3 text-left">Fecha</th>
-            <th class="px-4 py-3 text-left">Nombre</th>
-            <th class="px-4 py-3 text-left">Email</th>
-            <th class="px-4 py-3 text-left">Tel</th>
-            <th class="px-4 py-3 text-left">Tipo</th>
-            <th class="px-4 py-3 text-left">Estado</th>
-            <th class="px-4 py-3 text-left">Mensaje</th>
-          </tr>
-        </thead>
-        <tbody>
-          {requests?.map((r) => (
-            <tr class="border-t border-white/10">
-              <td class="px-4 py-3 whitespace-nowrap text-white/70">
-                {new Date(r.created_at).toLocaleString()}
-              </td>
-              <td class="px-4 py-3">{r.name}</td>
-              <td class="px-4 py-3 text-white/80">{r.email}</td>
-              <td class="px-4 py-3 text-white/80">{r.phone ?? "-"}</td>
-              <td class="px-4 py-3">{r.type}</td>
-              <td class="px-4 py-3">{r.status}</td>
-              <td class="px-4 py-3 max-w-[420px] text-white/80">
-                <span class="line-clamp-2">{r.message}</span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div class="mt-8 grid gap-4">
+      {requests?.length ? (
+        requests.map((r) => (
+          <article class="rounded-2xl border border-white/10 bg-white/[0.03] p-5">
+            <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+              <div class="min-w-0">
+                <div class="flex flex-wrap items-center gap-2">
+                  <h2 class="text-lg font-semibold">{r.name}</h2>
+                  <span class="rounded-full bg-white/10 px-3 py-1 text-xs text-white/80">
+                    {r.type}
+                  </span>
+
+                  {r.contacted ? (
+                    <span class="rounded-full bg-emerald-500/15 px-3 py-1 text-xs text-emerald-200">
+                      ✅ Contactado
+                    </span>
+                  ) : (
+                    <span class="rounded-full bg-amber-500/15 px-3 py-1 text-xs text-amber-200">
+                      ⏳ Pendiente
+                    </span>
+                  )}
+                </div>
+
+                <div class="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-white/75">
+                  <span>{r.email}</span>
+                  <span>{r.phone ?? "-"}</span>
+                  <span class="text-white/60">{new Date(r.created_at).toLocaleString()}</span>
+                </div>
+
+                <p class="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-white/85">
+                  {r.message}
+                </p>
+
+                <div class="mt-3 text-xs text-white/55">
+                  {r.ip ? <span>IP: {r.ip}</span> : <span>IP: -</span>}
+                  <span class="mx-2">·</span>
+                  <span>
+                    UA: {r.user_agent ? String(r.user_agent).slice(0, 80) : "-"}
+                    {r.user_agent && String(r.user_agent).length > 80 ? "…" : ""}
+                  </span>
+                </div>
+              </div>
+
+              <div class="w-full md:w-[320px] shrink-0">
+                <form method="POST" action="/api/requests/contacted" class="flex items-center gap-2">
+                  <input type="hidden" name="id" value={r.id} />
+                  <input type="hidden" name="contacted" value={(!r.contacted).toString()} />
+                  <button
+                    class={`w-full rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5 ${
+                      r.contacted ? "bg-emerald-500/10" : "bg-white/5"
+                    }`}
+                    type="submit"
+                  >
+                    {r.contacted ? "Marcar pendiente" : "Marcar contactado"}
+                  </button>
+                </form>
+
+                <form method="POST" action="/api/requests/notes" class="mt-3">
+                  <input type="hidden" name="id" value={r.id} />
+                  <label class="block text-xs text-white/60 mb-2">Notas internas</label>
+                  <textarea
+                    name="notes"
+                    rows="4"
+                    class="w-full rounded-xl border border-white/10 bg-black/20 p-3 text-sm text-white/90 placeholder:text-white/40"
+                    placeholder="Escribe notas para esta solicitud…"
+                  >{r.notes ?? ""}</textarea>
+
+                  <div class="mt-2 flex items-center justify-between gap-2">
+                    <button
+                      class="rounded-xl border border-white/15 px-4 py-2 text-sm hover:bg-white/5"
+                      type="submit"
+                    >
+                      Guardar notas
+                    </button>
+
+                    {r.contacted_at ? (
+                      <span class="text-xs text-white/55">
+                        Contactado: {new Date(r.contacted_at).toLocaleString()}
+                      </span>
+                    ) : null}
+                  </div>
+                </form>
+              </div>
+            </div>
+          </article>
+        ))
+      ) : (
+        <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-8 text-white/70">
+          No hay solicitudes todavía.
+        </div>
+      )}
     </div>
   </main>
 </BaseLayout>

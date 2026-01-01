@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { supabaseAdmin } from "../../lib/supabaseAdmin";
 
-const clean = (s: string) => String(s ?? "").trim().slice(0, 5000);
+const clean = (s: any) => String(s ?? "").trim().slice(0, 5000);
 
 async function readBody(request: Request): Promise<Record<string, any>> {
   const ct = request.headers.get("content-type") || "";
@@ -27,19 +27,12 @@ async function readBody(request: Request): Promise<Record<string, any>> {
   return {};
 }
 
-
 export const GET: APIRoute = async () => {
   return new Response("Method Not Allowed", { status: 405 });
 };
 
 export const POST: APIRoute = async ({ request }) => {
-    console.log("METHOD:", request.method);
-console.log("CT:", request.headers.get("content-type"));
-console.log("CL:", request.headers.get("content-length"));
-
   const data = await readBody(request);
-
-  console.log("DATA:", data);
 
   // Honeypot
   const company = clean(data.company);
@@ -51,8 +44,17 @@ console.log("CL:", request.headers.get("content-length"));
   const message = clean(data.message);
   const type = clean(data.type || "otro");
 
+  if (!name || !email || !message) {
+    return new Response("Faltan campos", { status: 400 });
+  }
 
-  if (!name || !email || !message) return new Response("Faltan campos", { status: 400 });
+  // IP + User-Agent (en Vercel viene casi siempre por x-forwarded-for)
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "";
+
+  const userAgent = request.headers.get("user-agent") || "";
 
   const { error } = await supabaseAdmin.from("requests").insert({
     name,
@@ -61,6 +63,8 @@ console.log("CL:", request.headers.get("content-length"));
     message,
     type,
     source: "web",
+    ip,
+    user_agent: userAgent,
   });
 
   if (error) return new Response("Error guardando", { status: 500 });
