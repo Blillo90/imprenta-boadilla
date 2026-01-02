@@ -2,80 +2,80 @@
 
 /* =========================
    THEME (Tailwind v4 CSS-first)
+   Paleta EXACTA del JSON
    ========================= */
 @theme {
-  /* Ghost White (PRIMARY) */
-  --color-primary-50: #e5e5ff;
-  --color-primary-100: #ccccff;
-  --color-primary-200: #9999ff;
-  --color-primary-300: #6666ff;
-  --color-primary-400: #3333ff;
-  --color-primary-500: #0000ff;
-  --color-primary-600: #0000cc;
-  --color-primary-700: #000099;
-  --color-primary-800: #000066;
-  --color-primary-900: #000033;
-  --color-primary-950: #000024;
+  /* brick-ember */
+  --color-brick-ember-50: #fbebe9;
+  --color-brick-ember-100: #f8d7d3;
+  --color-brick-ember-200: #f0afa8;
+  --color-brick-ember-300: #e9877c;
+  --color-brick-ember-400: #e15f51;
+  --color-brick-ember-500: #da3725;
+  --color-brick-ember-600: #ae2c1e;
+  --color-brick-ember-700: #832116;
+  --color-brick-ember-800: #57160f;
+  --color-brick-ember-900: #2c0b07;
+  --color-brick-ember-950: #1f0805;
 
-  /* Brick Ember (ACCENT / PROMOS) */
-  --color-accent-50: #fbebe9;
-  --color-accent-100: #f8d7d3;
-  --color-accent-200: #f0afa8;
-  --color-accent-300: #e9877c;
-  --color-accent-400: #e15f51;
-  --color-accent-500: #da3725;
-  --color-accent-600: #ae2c1e;
-  --color-accent-700: #832116;
-  --color-accent-800: #57160f;
-  --color-accent-900: #2c0b07;
-  --color-accent-950: #1f0805;
+  /* ghost-white */
+  --color-ghost-white-50: #e5e5ff;
+  --color-ghost-white-100: #ccccff;
+  --color-ghost-white-200: #9999ff;
+  --color-ghost-white-300: #6666ff;
+  --color-ghost-white-400: #3333ff;
+  --color-ghost-white-500: #0000ff;
+  --color-ghost-white-600: #0000cc;
+  --color-ghost-white-700: #000099;
+  --color-ghost-white-800: #000066;
+  --color-ghost-white-900: #000033;
+  --color-ghost-white-950: #000024;
 
-  /* Apricot Cream (WARM) */
-  --color-warm-50: #fcf4e9;
-  --color-warm-100: #f9e8d2;
-  --color-warm-200: #f2d1a6;
-  --color-warm-300: #ecba79;
-  --color-warm-400: #e6a34c;
-  --color-warm-500: #df8c20;
-  --color-warm-600: #b37019;
-  --color-warm-700: #865413;
-  --color-warm-800: #59380d;
-  --color-warm-900: #2d1c06;
-  --color-warm-950: #1f1404;
+  /* apricot-cream */
+  --color-apricot-cream-50: #fcf4e9;
+  --color-apricot-cream-100: #f9e8d2;
+  --color-apricot-cream-200: #f2d1a6;
+  --color-apricot-cream-300: #ecba79;
+  --color-apricot-cream-400: #e6a34c;
+  --color-apricot-cream-500: #df8c20;
+  --color-apricot-cream-600: #b37019;
+  --color-apricot-cream-700: #865413;
+  --color-apricot-cream-800: #59380d;
+  --color-apricot-cream-900: #2d1c06;
+  --color-apricot-cream-950: #1f1404;
 
-  /* Blue Slate (NEUTRALS) */
-  --color-slatebrand-50: #f0f1f4;
-  --color-slatebrand-100: #e1e4ea;
-  --color-slatebrand-200: #c4c9d4;
-  --color-slatebrand-300: #a6aebf;
-  --color-slatebrand-400: #8992a9;
-  --color-slatebrand-500: #6b7794;
-  --color-slatebrand-600: #565f76;
-  --color-slatebrand-700: #404859;
-  --color-slatebrand-800: #2b303b;
-  --color-slatebrand-900: #15181e;
-  --color-slatebrand-950: #0f1115;
+  /* blue-slate */
+  --color-blue-slate-50: #f0f1f4;
+  --color-blue-slate-100: #e1e4ea;
+  --color-blue-slate-200: #c4c9d4;
+  --color-blue-slate-300: #a6aebf;
+  --color-blue-slate-400: #8992a9;
+  --color-blue-slate-500: #6b7794;
+  --color-blue-slate-600: #565f76;
+  --color-blue-slate-700: #404859;
+  --color-blue-slate-800: #2b303b;
+  --color-blue-slate-900: #15181e;
+  --color-blue-slate-950: #0f1115;
 
-  /* Jungle Teal (SUCCESS / TRUST) */
-  --color-tealbrand-50: #eef7f4;
-  --color-tealbrand-100: #ddeee9;
-  --color-tealbrand-200: #baded3;
-  --color-tealbrand-300: #98cdbc;
-  --color-tealbrand-400: #75bda6;
-  --color-tealbrand-500: #53ac90;
-  --color-tealbrand-600: #428a73;
-  --color-tealbrand-700: #326756;
-  --color-tealbrand-800: #21453a;
-  --color-tealbrand-900: #11221d;
-  --color-tealbrand-950: #0c1814;
+  /* jungle-teal */
+  --color-jungle-teal-50: #eef7f4;
+  --color-jungle-teal-100: #ddeee9;
+  --color-jungle-teal-200: #baded3;
+  --color-jungle-teal-300: #98cdbc;
+  --color-jungle-teal-400: #75bda6;
+  --color-jungle-teal-500: #53ac90;
+  --color-jungle-teal-600: #428a73;
+  --color-jungle-teal-700: #326756;
+  --color-jungle-teal-800: #21453a;
+  --color-jungle-teal-900: #11221d;
+  --color-jungle-teal-950: #0c1814;
 
-  /* Radius “pixart-ish” */
   --radius-xl: 0.9rem;
   --radius-2xl: 1.25rem;
   --radius-3xl: 1.75rem;
 }
 
-/* Tipografía base (la tuya) */
+/* Tipografía */
 html {
   font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans",
     "Apple Color Emoji", "Segoe UI Emoji";
@@ -92,9 +92,7 @@ a,
   outline-offset: 2px;
 }
 
-/* =========================
-   Component helpers
-   ========================= */
+/* Helpers */
 @layer components {
   .container-max {
     @apply mx-auto max-w-6xl px-4;
@@ -107,21 +105,22 @@ a,
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition;
   }
+
+  /* CTA principal: brick-ember */
   .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700;
+    @apply bg-brick-ember-500 text-white hover:bg-brick-ember-600;
   }
+
+  /* Secundario */
   .btn-outline {
-    @apply border border-slatebrand-200 bg-white text-slatebrand-900 hover:bg-slatebrand-50;
-  }
-  .btn-accent {
-    @apply bg-accent-500 text-white hover:bg-accent-600;
+    @apply border border-blue-slate-200 bg-white text-blue-slate-950 hover:bg-blue-slate-50;
   }
 
   .input {
-    @apply w-full rounded-xl border border-slatebrand-200 bg-white px-4 py-3 text-slatebrand-900 placeholder:text-slatebrand-400 focus:border-primary-600;
+    @apply w-full rounded-xl border border-blue-slate-200 bg-white px-4 py-3 text-blue-slate-950 placeholder:text-blue-slate-400 focus:border-ghost-white-600;
   }
 
   .card {
-    @apply rounded-3xl border border-slatebrand-200 bg-white shadow-sm;
+    @apply rounded-3xl border border-blue-slate-200 bg-white shadow-sm;
   }
 }

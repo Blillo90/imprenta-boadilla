@@ -8,7 +8,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 >
   <section class="mx-auto max-w-3xl px-4 py-14">
     <h1 class="text-3xl font-bold tracking-tight">Pedir presupuesto</h1>
-    <p class="mt-2 text-slatebrand-600">Indica cantidades, medidas, acabados y fecha. Cuanta más info, más rápido.</p>
+    <p class="mt-2 text-blue-slate-600">Indica cantidades, medidas, acabados y fecha. Cuanta más info, más rápido.</p>
 
     <div class="mt-8 card p-6">
       <form class="grid gap-3" action="/api/request" method="POST">
@@ -39,18 +39,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
         <input type="hidden" name="source" value="presupuesto" />
 
-        <label class="flex items-start gap-2 text-sm text-slatebrand-600">
+        <label class="flex items-start gap-2 text-sm text-blue-slate-600">
           <input class="mt-1" type="checkbox" required />
-          <span>He leído y acepto la <a class="underline hover:text-slatebrand-900" href="/legal/privacidad">política de privacidad</a>.</span>
+          <span>He leído y acepto la <a class="underline hover:text-blue-slate-950" href="/legal/privacidad">política de privacidad</a>.</span>
         </label>
 
         <button class="btn btn-primary px-5 py-3" type="submit">Enviar</button>
       </form>
     </div>
 
-    <div class="mt-6 rounded-3xl border border-warm-200 bg-warm-50 p-6">
-      <p class="font-bold text-warm-900">Tip rápido</p>
-      <p class="mt-2 text-sm text-warm-900/80">PDF a tamaño final + sangrado, resolución mínima 300dpi.</p>
+    <div class="mt-6 rounded-3xl border border-apricot-cream-200 bg-apricot-cream-50 p-6">
+      <p class="font-bold text-apricot-cream-900">Tip rápido</p>
+      <p class="mt-2 text-sm text-apricot-cream-900/80">PDF a tamaño final + sangrado, resolución mínima 300dpi.</p>
     </div>
   </section>
 </BaseLayout>

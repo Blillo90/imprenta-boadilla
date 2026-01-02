@@ -21,17 +21,15 @@ const slides = [
   title="Imprenta Boadilla — Impresión, cartelería, rotulación y packaging"
   description="Imprenta en Boadilla del Monte: tarjetas, flyers, vinilos, lonas, rotulación, pegatinas y packaging. Presupuesto rápido por WhatsApp o formulario."
 >
-  <!-- Hero (slider simple con scroll-snap, estilo ecommerce) -->
   <section class="bg-white">
     <div class="container-max py-8 md:py-10">
       <div class="grid gap-6 lg:grid-cols-[1fr,380px] lg:items-start">
-        <!-- Slider -->
         <div class="card overflow-hidden">
-          <div class="border-b border-slatebrand-200 bg-slatebrand-50 px-5 py-4">
+          <div class="border-b border-blue-slate-200 bg-blue-slate-50 px-5 py-4">
             <div class="flex flex-wrap items-center justify-between gap-2">
-              <p class="chip border-tealbrand-200 bg-tealbrand-50 text-tealbrand-900">Respuesta en 24h</p>
-              <p class="chip border-warm-200 bg-warm-50 text-warm-900">Revisión de PDF incluida</p>
-              <p class="chip border-accent-200 bg-accent-50 text-accent-800">Ofertas semanales</p>
+              <p class="chip border-jungle-teal-200 bg-jungle-teal-50 text-jungle-teal-900">Respuesta en 24h</p>
+              <p class="chip border-apricot-cream-200 bg-apricot-cream-50 text-apricot-cream-900">Revisión de PDF incluida</p>
+              <p class="chip border-brick-ember-200 bg-brick-ember-50 text-brick-ember-800">Ofertas semanales</p>
             </div>
           </div>
 
@@ -41,10 +39,10 @@ const slides = [
                 <article class="relative min-w-full snap-start">
                   <div class="grid min-h-[320px] gap-6 p-6 md:min-h-[360px] md:grid-cols-[1.1fr,0.9fr] md:p-10">
                     <div class="flex flex-col justify-center">
-                      <h1 class="text-3xl font-bold tracking-tight text-slatebrand-900 md:text-4xl">
+                      <h1 class="text-3xl font-bold tracking-tight text-blue-slate-950 md:text-4xl">
                         {s.title}
                       </h1>
-                      <p class="mt-3 text-slatebrand-600">{s.subtitle}</p>
+                      <p class="mt-3 text-blue-slate-600">{s.subtitle}</p>
 
                       <div class="mt-6 flex flex-wrap gap-3">
                         <a class="btn btn-primary px-5 py-3" href={s.href}>{s.cta}</a>
@@ -60,32 +58,27 @@ const slides = [
                       </div>
 
                       <dl class="mt-8 grid grid-cols-3 gap-3 text-xs md:text-sm">
-                        <div class="rounded-2xl border border-slatebrand-200 bg-white p-4">
-                          <dt class="text-slatebrand-500">Entrega</dt>
-                          <dd class="mt-1 font-bold text-slatebrand-900">Urgente</dd>
+                        <div class="rounded-2xl border border-blue-slate-200 bg-white p-4">
+                          <dt class="text-blue-slate-500">Entrega</dt>
+                          <dd class="mt-1 font-bold text-blue-slate-950">Urgente</dd>
                         </div>
-                        <div class="rounded-2xl border border-slatebrand-200 bg-white p-4">
-                          <dt class="text-slatebrand-500">Calidad</dt>
-                          <dd class="mt-1 font-bold text-slatebrand-900">Premium</dd>
+                        <div class="rounded-2xl border border-blue-slate-200 bg-white p-4">
+                          <dt class="text-blue-slate-500">Calidad</dt>
+                          <dd class="mt-1 font-bold text-blue-slate-950">Premium</dd>
                         </div>
-                        <div class="rounded-2xl border border-slatebrand-200 bg-white p-4">
-                          <dt class="text-slatebrand-500">Zona</dt>
-                          <dd class="mt-1 font-bold text-slatebrand-900">Oeste Madrid</dd>
+                        <div class="rounded-2xl border border-blue-slate-200 bg-white p-4">
+                          <dt class="text-blue-slate-500">Zona</dt>
+                          <dd class="mt-1 font-bold text-blue-slate-950">Oeste Madrid</dd>
                         </div>
                       </dl>
                     </div>
 
                     <div class="relative">
-                      <div class="aspect-[4/3] overflow-hidden rounded-3xl border border-slatebrand-200 bg-slatebrand-50">
-                        <img
-                          src={s.img}
-                          alt={s.title}
-                          loading="lazy"
-                          class="h-full w-full object-cover"
-                        />
+                      <div class="aspect-[4/3] overflow-hidden rounded-3xl border border-blue-slate-200 bg-blue-slate-50">
+                        <img src={s.img} alt={s.title} loading="lazy" class="h-full w-full object-cover" />
                       </div>
-                      <div class="mt-3 flex items-center gap-2 text-xs text-slatebrand-500">
-                        <span class="inline-flex h-2 w-2 rounded-full bg-primary-600"></span>
+                      <div class="mt-3 flex items-center gap-2 text-xs text-blue-slate-500">
+                        <span class="inline-flex h-2 w-2 rounded-full bg-ghost-white-600"></span>
                         Desliza para ver más
                       </div>
                     </div>
@@ -96,10 +89,9 @@ const slides = [
           </div>
         </div>
 
-        <!-- “Quick quote” card -->
         <aside class="card p-6">
-          <p class="text-sm font-bold text-slatebrand-900">Presupuesto rápido</p>
-          <p class="mt-1 text-sm text-slatebrand-600">Cuéntanos qué necesitas y te respondemos.</p>
+          <p class="text-sm font-bold text-blue-slate-950">Presupuesto rápido</p>
+          <p class="mt-1 text-sm text-blue-slate-600">Cuéntanos qué necesitas y te respondemos.</p>
 
           <form class="mt-5 grid gap-3" action="/api/request" method="POST">
             <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
@@ -125,29 +117,26 @@ const slides = [
 
             <button class="btn btn-primary w-full py-3" type="submit">Enviar</button>
 
-            <p class="text-xs text-slatebrand-500">
-              Al enviar aceptas la <a class="underline hover:text-slatebrand-900" href="/legal/privacidad">política de privacidad</a>.
+            <p class="text-xs text-blue-slate-500">
+              Al enviar aceptas la <a class="underline hover:text-blue-slate-950" href="/legal/privacidad">política de privacidad</a>.
             </p>
           </form>
 
-          <div class="mt-5 rounded-2xl border border-warm-200 bg-warm-50 p-4">
-            <p class="text-sm font-bold text-warm-900">Tip</p>
-            <p class="mt-1 text-xs text-warm-900/80">Si tienes PDF, envíalo con sangrado + 300dpi.</p>
+          <div class="mt-5 rounded-2xl border border-apricot-cream-200 bg-apricot-cream-50 p-4">
+            <p class="text-sm font-bold text-apricot-cream-900">Tip</p>
+            <p class="mt-1 text-xs text-apricot-cream-900/80">Si tienes PDF, envíalo con sangrado + 300dpi.</p>
           </div>
         </aside>
       </div>
     </div>
   </section>
 
-  <!-- Categorías (tipo ecommerce) -->
-  <section id="categorias" class="border-t border-slatebrand-200 bg-slatebrand-50">
+  <section id="categorias" class="border-t border-blue-slate-200 bg-blue-slate-50">
     <div class="container-max py-14">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 class="text-2xl font-bold tracking-tight">Más vendidos</h2>
-          <p class="mt-2 max-w-2xl text-slatebrand-600">
-            Productos típicos para empresas, comercios y eventos en Boadilla.
-          </p>
+          <p class="mt-2 max-w-2xl text-blue-slate-600">Productos típicos para empresas, comercios y eventos en Boadilla.</p>
         </div>
         <a class="btn btn-outline" href="/presupuesto">Ver todo</a>
       </div>
@@ -155,13 +144,13 @@ const slides = [
       <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {categories.map((c) => (
           <a href={c.href} class="card group overflow-hidden">
-            <div class="aspect-[16/10] bg-slatebrand-50">
+            <div class="aspect-[16/10] bg-blue-slate-50">
               <img src={c.img} alt={c.title} loading="lazy" class="h-full w-full object-cover transition group-hover:scale-[1.03]" />
             </div>
             <div class="p-6">
               <p class="text-lg font-bold">{c.title}</p>
-              <p class="mt-1 text-sm text-slatebrand-600">{c.desc}</p>
-              <p class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary-700">
+              <p class="mt-1 text-sm text-blue-slate-600">{c.desc}</p>
+              <p class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-ghost-white-700">
                 Ver opciones <span aria-hidden="true">→</span>
               </p>
             </div>
@@ -171,42 +160,37 @@ const slides = [
     </div>
   </section>
 
-  <!-- Servicios (tu bloque, con colores nuevos) -->
-  <section id="servicios" class="border-t border-slatebrand-200 bg-white">
+  <section id="servicios" class="border-t border-blue-slate-200 bg-white">
     <div class="container-max py-14">
       <h2 class="text-2xl font-bold tracking-tight">Servicios</h2>
-      <p class="mt-2 max-w-2xl text-slatebrand-600">
-        Impresión comercial, rotulación y materiales para eventos o comercios.
-      </p>
+      <p class="mt-2 max-w-2xl text-blue-slate-600">Impresión comercial, rotulación y materiales para eventos o comercios.</p>
 
       <div class="mt-8 grid gap-5 md:grid-cols-3">
         <div class="card p-6">
-          <p class="text-sm font-bold text-primary-700">Imprenta</p>
+          <p class="text-sm font-bold text-ghost-white-700">Imprenta</p>
           <h3 class="mt-1 text-lg font-bold">Tarjetas, flyers y catálogos</h3>
-          <p class="mt-2 text-sm text-slatebrand-600">Papel premium, acabados mate/brillo, laminados, troquel y más.</p>
-          <a class="mt-4 inline-flex text-sm font-bold text-primary-700 hover:text-primary-800" href="/presupuesto">Pedir precio →</a>
+          <p class="mt-2 text-sm text-blue-slate-600">Papel premium, acabados mate/brillo, laminados, troquel y más.</p>
+          <a class="mt-4 inline-flex text-sm font-bold text-ghost-white-700 hover:text-ghost-white-800" href="/presupuesto">Pedir precio →</a>
         </div>
 
         <div class="card p-6">
-          <p class="text-sm font-bold text-primary-700">Cartelería</p>
+          <p class="text-sm font-bold text-ghost-white-700">Cartelería</p>
           <h3 class="mt-1 text-lg font-bold">Vinilos, lonas y rótulos</h3>
-          <p class="mt-2 text-sm text-slatebrand-600">Interior/exterior, escaparates, vehículos, eventos y señalética.</p>
-          <a class="mt-4 inline-flex text-sm font-bold text-primary-700 hover:text-primary-800" href="/presupuesto">Pedir precio →</a>
+          <p class="mt-2 text-sm text-blue-slate-600">Interior/exterior, escaparates, vehículos, eventos y señalética.</p>
+          <a class="mt-4 inline-flex text-sm font-bold text-ghost-white-700 hover:text-ghost-white-800" href="/presupuesto">Pedir precio →</a>
         </div>
 
         <div class="card p-6">
-          <p class="text-sm font-bold text-primary-700">Packaging</p>
+          <p class="text-sm font-bold text-ghost-white-700">Packaging</p>
           <h3 class="mt-1 text-lg font-bold">Pegatinas y presentación</h3>
-          <p class="mt-2 text-sm text-slatebrand-600">Etiquetas, adhesivos, cajas, bolsas y personalización para marca.</p>
-          <a class="mt-4 inline-flex text-sm font-bold text-primary-700 hover:text-primary-800" href="/presupuesto">Pedir precio →</a>
+          <p class="mt-2 text-sm text-blue-slate-600">Etiquetas, adhesivos, cajas, bolsas y personalización para marca.</p>
+          <a class="mt-4 inline-flex text-sm font-bold text-ghost-white-700 hover:text-ghost-white-800" href="/presupuesto">Pedir precio →</a>
         </div>
       </div>
 
-      <div class="mt-10 rounded-3xl border border-primary-100 bg-primary-50 p-8">
-        <h3 class="text-xl font-bold text-primary-900">¿Tienes el diseño? Te lo revisamos gratis</h3>
-        <p class="mt-2 text-primary-900/80">
-          Revisamos sangrado, márgenes y resolución para evitar sorpresas.
-        </p>
+      <div class="mt-10 rounded-3xl border border-ghost-white-100 bg-ghost-white-50 p-8">
+        <h3 class="text-xl font-bold text-ghost-white-950">¿Tienes el diseño? Te lo revisamos gratis</h3>
+        <p class="mt-2 text-ghost-white-950/80">Revisamos sangrado, márgenes y resolución para evitar sorpresas.</p>
         <div class="mt-5 flex flex-wrap gap-3">
           <a class="btn btn-primary px-5 py-3" href="/presupuesto">Enviar detalles</a>
           <a class="btn btn-outline px-5 py-3" href="/contacto">Hablar con nosotros</a>
@@ -215,15 +199,12 @@ const slides = [
     </div>
   </section>
 
-  <!-- Trabajos -->
-  <section id="trabajos" class="border-t border-slatebrand-200 bg-white">
+  <section id="trabajos" class="border-t border-blue-slate-200 bg-white">
     <div class="container-max py-14">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 class="text-2xl font-bold tracking-tight">Trabajos recientes</h2>
-          <p class="mt-2 max-w-2xl text-slatebrand-600">
-            Sustituye estos placeholders por fotos reales (recomendado).
-          </p>
+          <p class="mt-2 max-w-2xl text-blue-slate-600">Sustituye estos placeholders por fotos reales (recomendado).</p>
         </div>
         <a class="btn btn-outline" href="/contacto">Quiero algo así</a>
       </div>
@@ -231,17 +212,12 @@ const slides = [
       <div class="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
           <div class="card overflow-hidden">
-            <div class="aspect-[4/3] bg-slatebrand-50">
-              <img
-                src={`/images/portfolio/work-${i + 1}.webp`}
-                alt={`Trabajo ${i + 1}`}
-                loading="lazy"
-                class="h-full w-full object-cover"
-              />
+            <div class="aspect-[4/3] bg-blue-slate-50">
+              <img src={`/images/portfolio/work-${i + 1}.webp`} alt={`Trabajo ${i + 1}`} loading="lazy" class="h-full w-full object-cover" />
             </div>
             <div class="p-4">
               <p class="text-sm font-bold">Proyecto {i + 1}</p>
-              <p class="mt-1 text-xs text-slatebrand-600">Descripción corta del trabajo (material, acabado, etc.).</p>
+              <p class="mt-1 text-xs text-blue-slate-600">Descripción corta del trabajo (material, acabado, etc.).</p>
             </div>
           </div>
         ))}
@@ -249,45 +225,43 @@ const slides = [
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="border-t border-slatebrand-200 bg-slatebrand-50">
+  <section id="faq" class="border-t border-blue-slate-200 bg-blue-slate-50">
     <div class="container-max py-14">
       <h2 class="text-2xl font-bold tracking-tight">Preguntas frecuentes</h2>
 
       <div class="mt-8 grid gap-4 md:grid-cols-2">
         <details class="card p-6">
           <summary class="cursor-pointer font-bold">¿Qué formato de archivo es mejor?</summary>
-          <p class="mt-3 text-sm text-slatebrand-600">PDF a tamaño final, con sangrado y fuentes trazadas (o incrustadas).</p>
+          <p class="mt-3 text-sm text-blue-slate-600">PDF a tamaño final, con sangrado y fuentes trazadas (o incrustadas).</p>
         </details>
 
         <details class="card p-6">
           <summary class="cursor-pointer font-bold">¿Hacéis trabajos urgentes?</summary>
-          <p class="mt-3 text-sm text-slatebrand-600">Sí, según producto y carga. Indica la fecha.</p>
+          <p class="mt-3 text-sm text-blue-slate-600">Sí, según producto y carga. Indica la fecha.</p>
         </details>
 
         <details class="card p-6">
           <summary class="cursor-pointer font-bold">¿Podéis diseñarlo vosotros?</summary>
-          <p class="mt-3 text-sm text-slatebrand-600">Sí. Adaptamos tu idea o creamos el diseño desde cero.</p>
+          <p class="mt-3 text-sm text-blue-slate-600">Sí. Adaptamos tu idea o creamos el diseño desde cero.</p>
         </details>
 
         <details class="card p-6">
           <summary class="cursor-pointer font-bold">¿Entregáis en Boadilla y alrededores?</summary>
-          <p class="mt-3 text-sm text-slatebrand-600">Sí, Boadilla del Monte y zona oeste (Pozuelo, Majadahonda, etc.).</p>
+          <p class="mt-3 text-sm text-blue-slate-600">Sí, Boadilla del Monte y zona oeste (Pozuelo, Majadahonda, etc.).</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- CTA final -->
-  <section class="border-t border-slatebrand-200 bg-white">
+  <section class="border-t border-blue-slate-200 bg-white">
     <div class="container-max py-14">
-      <div class="rounded-3xl bg-slatebrand-900 px-8 py-10 text-white md:flex md:items-center md:justify-between">
+      <div class="rounded-3xl bg-blue-slate-950 px-8 py-10 text-white md:flex md:items-center md:justify-between">
         <div>
           <h2 class="text-2xl font-bold">¿Listo para imprimir?</h2>
           <p class="mt-2 text-white/80">Cuéntanos tu idea y te damos presupuesto claro y rápido.</p>
         </div>
         <div class="mt-6 flex flex-wrap gap-3 md:mt-0">
-          <a class="btn bg-white text-slatebrand-900 hover:bg-white/90 px-5 py-3" href="/presupuesto">Pedir presupuesto</a>
+          <a class="btn bg-brick-ember-500 text-white hover:bg-brick-ember-600 px-5 py-3" href="/presupuesto">Pedir presupuesto</a>
           <a class="btn border border-white/20 bg-white/10 text-white hover:bg-white/15 px-5 py-3" href="/contacto">Contacto</a>
         </div>
       </div>

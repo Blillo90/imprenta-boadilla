@@ -9,7 +9,6 @@ const {
 const canonical = Astro.url?.href ?? "";
 const siteName = "Imprenta Boadilla";
 
-// ⚠️ Rellena estos datos (frontend-only, no toca backend)
 const BUSINESS = {
   name: "Imprenta Boadilla",
   url: canonical ? new URL(canonical).origin : "https://tudominio.com",
@@ -22,10 +21,7 @@ const BUSINESS = {
     postalCode: "28660",
     addressCountry: "ES",
   },
-  geo: {
-    latitude: "40.4050",
-    longitude: "-3.8790",
-  },
+  geo: { latitude: "40.4050", longitude: "-3.8790" },
   openingHours: ["Mo-Fr 09:00-19:00", "Sa 10:00-14:00"],
   sameAs: [],
 };
@@ -80,20 +76,18 @@ const jsonLd = {
     </script>
   </head>
 
-  <body class="min-h-screen bg-slatebrand-50 text-slatebrand-900 antialiased">
+  <body class="min-h-screen bg-blue-slate-50 text-blue-slate-950 antialiased">
     <a
       href="#contenido"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-slatebrand-900 focus:shadow-lg"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-blue-slate-950 focus:shadow-lg"
     >
       Saltar al contenido
     </a>
 
-    <!-- Top promo bar (Pixart-ish) -->
-    <div class="border-b border-slatebrand-200 bg-slatebrand-900 text-white">
+    <!-- Top promo bar -->
+    <div class="border-b border-blue-slate-800 bg-blue-slate-950 text-white">
       <div class="container-max flex flex-wrap items-center justify-between gap-2 py-2 text-xs">
-        <p class="opacity-90">
-          🔥 Ofertas semanales • Producción rápida • Soporte local en Boadilla
-        </p>
+        <p class="opacity-90">🔥 Ofertas semanales • Producción rápida • Soporte local en Boadilla</p>
         <div class="flex flex-wrap items-center gap-3 opacity-90">
           <a class="hover:underline" href="/contacto">Contacto</a>
           <a class="hover:underline" href="/presupuesto">Presupuesto</a>
@@ -103,29 +97,35 @@ const jsonLd = {
     </div>
 
     <!-- Header -->
-    <header class="sticky top-0 z-40 border-b border-slatebrand-200 bg-white/85 backdrop-blur">
+    <header class="sticky top-0 z-40 border-b border-blue-slate-200 bg-white/85 backdrop-blur">
       <div class="container-max grid gap-3 py-4 md:grid-cols-[auto,1fr,auto] md:items-center">
         <!-- Brand -->
         <a href="/" class="flex items-center gap-3 font-bold tracking-tight">
-          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-600 text-white">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-ghost-white-600 text-white">
             IB
           </span>
           <span class="leading-tight">
-            Imprenta <span class="text-primary-700">Boadilla</span>
-            <span class="block text-xs font-semibold text-slatebrand-500">Impresión • Rotulación • Packaging</span>
+            Imprenta <span class="text-ghost-white-700">Boadilla</span>
+            <span class="block text-xs font-semibold text-blue-slate-500">Impresión • Rotulación • Packaging</span>
           </span>
         </a>
 
         <!-- Search (desktop) -->
-        <form class="hidden md:block" action="/presupuesto" method="GET" role="search" aria-label="Buscar productos">
+        <form
+          class="hidden w-full max-w-xl justify-self-center md:block"
+          action="/presupuesto"
+          method="GET"
+          role="search"
+          aria-label="Buscar productos"
+        >
           <div class="relative">
             <input
               name="q"
-              class="w-full rounded-2xl border border-slatebrand-200 bg-slatebrand-50 px-4 py-3 pr-28 text-sm text-slatebrand-900 placeholder:text-slatebrand-500 focus:border-primary-600"
+              class="w-full rounded-2xl border border-blue-slate-200 bg-blue-slate-50 px-4 py-2.5 pr-24 text-sm text-blue-slate-950 placeholder:text-blue-slate-500 focus:border-ghost-white-600"
               placeholder="Busca: tarjetas, flyers, pegatinas, lonas…"
             />
             <button
-              class="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700"
+              class="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-ghost-white-600 px-3 py-2 text-sm font-semibold text-white hover:bg-ghost-white-700"
               type="submit"
             >
               Buscar
@@ -141,14 +141,14 @@ const jsonLd = {
       </div>
 
       <!-- Category nav -->
-      <nav class="border-t border-slatebrand-200 bg-white">
+      <nav class="border-t border-blue-slate-200 bg-white">
         <div class="container-max flex gap-2 overflow-x-auto py-3 text-sm">
-          <a class="chip border-slatebrand-200 bg-slatebrand-50 text-slatebrand-800 hover:bg-white" href="/#categorias">Más vendidos</a>
-          <a class="chip border-slatebrand-200 bg-white text-slatebrand-800 hover:bg-slatebrand-50" href="/#servicios">Servicios</a>
-          <a class="chip border-slatebrand-200 bg-white text-slatebrand-800 hover:bg-slatebrand-50" href="/#trabajos">Trabajos</a>
-          <a class="chip border-slatebrand-200 bg-white text-slatebrand-800 hover:bg-slatebrand-50" href="/#faq">FAQ</a>
-          <a class="chip border-warm-200 bg-warm-50 text-warm-900 hover:bg-warm-100" href="/presupuesto">Urgente</a>
-          <a class="chip border-tealbrand-200 bg-tealbrand-50 text-tealbrand-900 hover:bg-tealbrand-100" href="/contacto">Asesoramiento</a>
+          <a class="chip border-blue-slate-200 bg-blue-slate-50 text-blue-slate-950 hover:bg-white" href="/#categorias">Más vendidos</a>
+          <a class="chip border-blue-slate-200 bg-white text-blue-slate-950 hover:bg-blue-slate-50" href="/#servicios">Servicios</a>
+          <a class="chip border-blue-slate-200 bg-white text-blue-slate-950 hover:bg-blue-slate-50" href="/#trabajos">Trabajos</a>
+          <a class="chip border-blue-slate-200 bg-white text-blue-slate-950 hover:bg-blue-slate-50" href="/#faq">FAQ</a>
+          <a class="chip border-apricot-cream-200 bg-apricot-cream-50 text-apricot-cream-900 hover:bg-apricot-cream-100" href="/presupuesto">Urgente</a>
+          <a class="chip border-jungle-teal-200 bg-jungle-teal-50 text-jungle-teal-900 hover:bg-jungle-teal-100" href="/contacto">Asesoramiento</a>
         </div>
       </nav>
     </header>
@@ -157,11 +157,11 @@ const jsonLd = {
       <slot />
     </main>
 
-    <footer class="border-t border-slatebrand-200 bg-white">
+    <footer class="border-t border-blue-slate-200 bg-white">
       <div class="container-max grid gap-8 py-12 md:grid-cols-3">
         <div>
           <p class="text-lg font-bold">Imprenta Boadilla</p>
-          <p class="mt-2 text-sm text-slatebrand-600">
+          <p class="mt-2 text-sm text-blue-slate-600">
             Impresión, cartelería, rotulación, packaging y diseño. Respuesta rápida y trato local.
           </p>
           <div class="mt-4 flex flex-wrap gap-3 text-sm">
@@ -171,30 +171,30 @@ const jsonLd = {
         </div>
 
         <div>
-          <p class="text-sm font-bold text-slatebrand-900">Servicios</p>
-          <ul class="mt-3 space-y-2 text-sm text-slatebrand-600">
-            <li><a class="hover:text-slatebrand-900" href="/#servicios">Tarjetas, flyers, catálogos</a></li>
-            <li><a class="hover:text-slatebrand-900" href="/#servicios">Vinilos, lonas, rótulos</a></li>
-            <li><a class="hover:text-slatebrand-900" href="/#servicios">Packaging y pegatinas</a></li>
+          <p class="text-sm font-bold text-blue-slate-950">Servicios</p>
+          <ul class="mt-3 space-y-2 text-sm text-blue-slate-600">
+            <li><a class="hover:text-blue-slate-950" href="/#servicios">Tarjetas, flyers, catálogos</a></li>
+            <li><a class="hover:text-blue-slate-950" href="/#servicios">Vinilos, lonas, rótulos</a></li>
+            <li><a class="hover:text-blue-slate-950" href="/#servicios">Packaging y pegatinas</a></li>
           </ul>
         </div>
 
         <div>
-          <p class="text-sm font-bold text-slatebrand-900">Datos</p>
-          <ul class="mt-3 space-y-2 text-sm text-slatebrand-600">
+          <p class="text-sm font-bold text-blue-slate-950">Datos</p>
+          <ul class="mt-3 space-y-2 text-sm text-blue-slate-600">
             <li>📍 {BUSINESS.address.addressLocality}, {BUSINESS.address.addressRegion}</li>
-            <li>📞 <a class="hover:text-slatebrand-900" href={`tel:${BUSINESS.telephone}`}>{BUSINESS.telephone}</a></li>
-            <li>✉️ <a class="hover:text-slatebrand-900" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
+            <li>📞 <a class="hover:text-blue-slate-950" href={`tel:${BUSINESS.telephone}`}>{BUSINESS.telephone}</a></li>
+            <li>✉️ <a class="hover:text-blue-slate-950" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="border-t border-slatebrand-200">
-        <div class="container-max flex flex-col gap-3 py-6 text-sm text-slatebrand-600 md:flex-row md:items-center md:justify-between">
+      <div class="border-t border-blue-slate-200">
+        <div class="container-max flex flex-col gap-3 py-6 text-sm text-blue-slate-600 md:flex-row md:items-center md:justify-between">
           <div class="flex flex-wrap gap-3">
-            <a class="underline hover:text-slatebrand-900" href="/legal/aviso-legal">Aviso legal</a>
-            <a class="underline hover:text-slatebrand-900" href="/legal/privacidad">Privacidad</a>
-            <a class="underline hover:text-slatebrand-900" href="/legal/cookies">Cookies</a>
+            <a class="underline hover:text-blue-slate-950" href="/legal/aviso-legal">Aviso legal</a>
+            <a class="underline hover:text-blue-slate-950" href="/legal/privacidad">Privacidad</a>
+            <a class="underline hover:text-blue-slate-950" href="/legal/cookies">Cookies</a>
           </div>
           <p>© {new Date().getFullYear()} Imprenta Boadilla</p>
         </div>

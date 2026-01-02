@@ -8,20 +8,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 >
   <section class="mx-auto max-w-6xl px-4 py-14">
     <h1 class="text-3xl font-bold tracking-tight">Contacto</h1>
-    <p class="mt-2 text-slatebrand-600">Llámanos o escríbenos por WhatsApp. También puedes usar el formulario.</p>
+    <p class="mt-2 text-blue-slate-600">Llámanos o escríbenos por WhatsApp. También puedes usar el formulario.</p>
 
     <div class="mt-10 grid gap-6 md:grid-cols-2">
       <div class="card p-6">
         <h2 class="text-lg font-bold">Datos</h2>
-        <div class="mt-4 space-y-2 text-slatebrand-700">
+        <div class="mt-4 space-y-2 text-blue-slate-700">
           <p>📍 Boadilla del Monte (Madrid)</p>
-          <p>📞 <a class="font-bold text-primary-700 hover:text-primary-800" href="tel:+34TU_TELEFONO">+34 TU_TELEFONO</a></p>
-          <p>✉️ <a class="font-bold text-primary-700 hover:text-primary-800" href="mailto:tuemail@dominio.com">tuemail@dominio.com</a></p>
+          <p>📞 <a class="font-bold text-ghost-white-700 hover:text-ghost-white-800" href="tel:+34TU_TELEFONO">+34 TU_TELEFONO</a></p>
+          <p>✉️ <a class="font-bold text-ghost-white-700 hover:text-ghost-white-800" href="mailto:tuemail@dominio.com">tuemail@dominio.com</a></p>
         </div>
 
-        <div class="mt-6 rounded-2xl border border-tealbrand-200 bg-tealbrand-50 p-5">
-          <p class="text-sm font-bold text-tealbrand-900">WhatsApp directo</p>
-          <p class="mt-1 text-sm text-tealbrand-900/80">Envíanos medidas, cantidades y fecha.</p>
+        <div class="mt-6 rounded-2xl border border-jungle-teal-200 bg-jungle-teal-50 p-5">
+          <p class="text-sm font-bold text-jungle-teal-900">WhatsApp directo</p>
+          <p class="mt-1 text-sm text-jungle-teal-900/80">Envíanos medidas, cantidades y fecha.</p>
           <a
             class="mt-4 btn btn-primary px-5 py-3"
             href="https://wa.me/TU_NUMERO_AQUI?text=Hola%20quiero%20hacer%20un%20pedido%20de%20imprenta"
@@ -35,7 +35,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
       <div class="card p-6">
         <h2 class="text-lg font-bold">Formulario</h2>
-        <p class="mt-2 text-sm text-slatebrand-600">Te respondemos lo antes posible.</p>
+        <p class="mt-2 text-sm text-blue-slate-600">Te respondemos lo antes posible.</p>
 
         <form class="mt-5 grid gap-3" action="/api/request" method="POST">
           <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
@@ -59,9 +59,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
           <input type="hidden" name="source" value="contacto" />
 
-          <label class="flex items-start gap-2 text-sm text-slatebrand-600">
+          <label class="flex items-start gap-2 text-sm text-blue-slate-600">
             <input class="mt-1" type="checkbox" required />
-            <span>He leído y acepto la <a class="underline hover:text-slatebrand-900" href="/legal/privacidad">política de privacidad</a>.</span>
+            <span>He leído y acepto la <a class="underline hover:text-blue-slate-950" href="/legal/privacidad">política de privacidad</a>.</span>
           </label>
 
           <button class="btn btn-primary px-5 py-3" type="submit">Enviar</button>
