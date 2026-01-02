@@ -27,10 +27,7 @@ const BUSINESS = {
     longitude: "-3.8790",
   },
   openingHours: ["Mo-Fr 09:00-19:00", "Sa 10:00-14:00"],
-  sameAs: [
-    // "https://www.instagram.com/tuusuario",
-    // "https://www.facebook.com/tuempresa"
-  ],
+  sameAs: [],
 };
 
 const jsonLd = {
@@ -57,7 +54,6 @@ const jsonLd = {
     <meta name="description" content={description} />
     {canonical && <link rel="canonical" href={canonical} />}
 
-    <!-- Google Fonts (sin instalar paquetes) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -67,14 +63,12 @@ const jsonLd = {
 
     <meta name="robots" content="index,follow" />
 
-    <!-- Open Graph -->
     <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:type" content="website" />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -86,100 +80,121 @@ const jsonLd = {
     </script>
   </head>
 
-  <body class="min-h-screen bg-white text-slate-900 antialiased">
+  <body class="min-h-screen bg-slatebrand-50 text-slatebrand-900 antialiased">
     <a
       href="#contenido"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-slate-900 focus:shadow-lg"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-3 focus:text-slatebrand-900 focus:shadow-lg"
     >
       Saltar al contenido
     </a>
 
-    <header class="sticky top-0 z-40 border-b border-slate-200/70 bg-white/80 backdrop-blur">
-      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <a href="/" class="flex items-center gap-2 font-semibold tracking-tight">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white">
-            IB
-          </span>
-          <span>Imprenta Boadilla</span>
-        </a>
-
-        <nav class="hidden items-center gap-6 text-sm text-slate-700 md:flex">
-          <a class="hover:text-slate-900" href="/#servicios">Servicios</a>
-          <a class="hover:text-slate-900" href="/#trabajos">Trabajos</a>
-          <a class="hover:text-slate-900" href="/#faq">FAQ</a>
-          <a class="hover:text-slate-900" href="/contacto">Contacto</a>
-          <a
-            class="rounded-xl bg-blue-600 px-4 py-2 font-semibold text-white shadow-sm hover:bg-blue-700"
-            href="/presupuesto"
-          >
-            Pedir presupuesto
-          </a>
-        </nav>
-
-        <div class="flex items-center gap-2 md:hidden">
-          <a
-            class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
-            href="/contacto"
-          >
-            Contacto
-          </a>
-          <a
-            class="rounded-xl bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
-            href="/presupuesto"
-          >
-            Presupuesto
-          </a>
+    <!-- Top promo bar (Pixart-ish) -->
+    <div class="border-b border-slatebrand-200 bg-slatebrand-900 text-white">
+      <div class="container-max flex flex-wrap items-center justify-between gap-2 py-2 text-xs">
+        <p class="opacity-90">
+          🔥 Ofertas semanales • Producción rápida • Soporte local en Boadilla
+        </p>
+        <div class="flex flex-wrap items-center gap-3 opacity-90">
+          <a class="hover:underline" href="/contacto">Contacto</a>
+          <a class="hover:underline" href="/presupuesto">Presupuesto</a>
+          <a class="hover:underline" href="/admin/login">Admin</a>
         </div>
       </div>
+    </div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-slatebrand-200 bg-white/85 backdrop-blur">
+      <div class="container-max grid gap-3 py-4 md:grid-cols-[auto,1fr,auto] md:items-center">
+        <!-- Brand -->
+        <a href="/" class="flex items-center gap-3 font-bold tracking-tight">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-600 text-white">
+            IB
+          </span>
+          <span class="leading-tight">
+            Imprenta <span class="text-primary-700">Boadilla</span>
+            <span class="block text-xs font-semibold text-slatebrand-500">Impresión • Rotulación • Packaging</span>
+          </span>
+        </a>
+
+        <!-- Search (desktop) -->
+        <form class="hidden md:block" action="/presupuesto" method="GET" role="search" aria-label="Buscar productos">
+          <div class="relative">
+            <input
+              name="q"
+              class="w-full rounded-2xl border border-slatebrand-200 bg-slatebrand-50 px-4 py-3 pr-28 text-sm text-slatebrand-900 placeholder:text-slatebrand-500 focus:border-primary-600"
+              placeholder="Busca: tarjetas, flyers, pegatinas, lonas…"
+            />
+            <button
+              class="absolute right-2 top-1/2 -translate-y-1/2 rounded-xl bg-primary-600 px-4 py-2 text-sm font-semibold text-white hover:bg-primary-700"
+              type="submit"
+            >
+              Buscar
+            </button>
+          </div>
+        </form>
+
+        <!-- CTAs -->
+        <div class="flex items-center gap-2 justify-self-end">
+          <a class="btn btn-outline hidden sm:inline-flex" href="/contacto">Contacto</a>
+          <a class="btn btn-primary" href="/presupuesto">Pedir presupuesto</a>
+        </div>
+      </div>
+
+      <!-- Category nav -->
+      <nav class="border-t border-slatebrand-200 bg-white">
+        <div class="container-max flex gap-2 overflow-x-auto py-3 text-sm">
+          <a class="chip border-slatebrand-200 bg-slatebrand-50 text-slatebrand-800 hover:bg-white" href="/#categorias">Más vendidos</a>
+          <a class="chip border-slatebrand-200 bg-white text-slatebrand-800 hover:bg-slatebrand-50" href="/#servicios">Servicios</a>
+          <a class="chip border-slatebrand-200 bg-white text-slatebrand-800 hover:bg-slatebrand-50" href="/#trabajos">Trabajos</a>
+          <a class="chip border-slatebrand-200 bg-white text-slatebrand-800 hover:bg-slatebrand-50" href="/#faq">FAQ</a>
+          <a class="chip border-warm-200 bg-warm-50 text-warm-900 hover:bg-warm-100" href="/presupuesto">Urgente</a>
+          <a class="chip border-tealbrand-200 bg-tealbrand-50 text-tealbrand-900 hover:bg-tealbrand-100" href="/contacto">Asesoramiento</a>
+        </div>
+      </nav>
     </header>
 
     <main id="contenido">
       <slot />
     </main>
 
-    <footer class="border-t border-slate-200">
-      <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 md:grid-cols-3">
+    <footer class="border-t border-slatebrand-200 bg-white">
+      <div class="container-max grid gap-8 py-12 md:grid-cols-3">
         <div>
-          <p class="text-lg font-semibold">Imprenta Boadilla</p>
-          <p class="mt-2 text-sm text-slate-600">
+          <p class="text-lg font-bold">Imprenta Boadilla</p>
+          <p class="mt-2 text-sm text-slatebrand-600">
             Impresión, cartelería, rotulación, packaging y diseño. Respuesta rápida y trato local.
           </p>
           <div class="mt-4 flex flex-wrap gap-3 text-sm">
-            <a class="rounded-lg border border-slate-200 px-3 py-2 hover:bg-slate-50" href="/presupuesto">
-              Pedir presupuesto
-            </a>
-            <a class="rounded-lg border border-slate-200 px-3 py-2 hover:bg-slate-50" href="/contacto">
-              Contacto
-            </a>
+            <a class="btn btn-primary" href="/presupuesto">Pedir presupuesto</a>
+            <a class="btn btn-outline" href="/contacto">Contacto</a>
           </div>
         </div>
 
         <div>
-          <p class="text-sm font-semibold text-slate-900">Servicios</p>
-          <ul class="mt-3 space-y-2 text-sm text-slate-600">
-            <li><a class="hover:text-slate-900" href="/#servicios">Tarjetas, flyers, catálogos</a></li>
-            <li><a class="hover:text-slate-900" href="/#servicios">Vinilos, lonas, rótulos</a></li>
-            <li><a class="hover:text-slate-900" href="/#servicios">Packaging y pegatinas</a></li>
+          <p class="text-sm font-bold text-slatebrand-900">Servicios</p>
+          <ul class="mt-3 space-y-2 text-sm text-slatebrand-600">
+            <li><a class="hover:text-slatebrand-900" href="/#servicios">Tarjetas, flyers, catálogos</a></li>
+            <li><a class="hover:text-slatebrand-900" href="/#servicios">Vinilos, lonas, rótulos</a></li>
+            <li><a class="hover:text-slatebrand-900" href="/#servicios">Packaging y pegatinas</a></li>
           </ul>
         </div>
 
         <div>
-          <p class="text-sm font-semibold text-slate-900">Datos</p>
-          <ul class="mt-3 space-y-2 text-sm text-slate-600">
+          <p class="text-sm font-bold text-slatebrand-900">Datos</p>
+          <ul class="mt-3 space-y-2 text-sm text-slatebrand-600">
             <li>📍 {BUSINESS.address.addressLocality}, {BUSINESS.address.addressRegion}</li>
-            <li>📞 <a class="hover:text-slate-900" href={`tel:${BUSINESS.telephone}`}>{BUSINESS.telephone}</a></li>
-            <li>✉️ <a class="hover:text-slate-900" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
+            <li>📞 <a class="hover:text-slatebrand-900" href={`tel:${BUSINESS.telephone}`}>{BUSINESS.telephone}</a></li>
+            <li>✉️ <a class="hover:text-slatebrand-900" href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
           </ul>
         </div>
       </div>
 
-      <div class="border-t border-slate-200">
-        <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 md:flex-row md:items-center md:justify-between">
+      <div class="border-t border-slatebrand-200">
+        <div class="container-max flex flex-col gap-3 py-6 text-sm text-slatebrand-600 md:flex-row md:items-center md:justify-between">
           <div class="flex flex-wrap gap-3">
-            <a class="underline hover:text-slate-900" href="/legal/aviso-legal">Aviso legal</a>
-            <a class="underline hover:text-slate-900" href="/legal/privacidad">Privacidad</a>
-            <a class="underline hover:text-slate-900" href="/legal/cookies">Cookies</a>
-            <a class="underline hover:text-slate-900" href="/admin/login">Admin</a>
+            <a class="underline hover:text-slatebrand-900" href="/legal/aviso-legal">Aviso legal</a>
+            <a class="underline hover:text-slatebrand-900" href="/legal/privacidad">Privacidad</a>
+            <a class="underline hover:text-slatebrand-900" href="/legal/cookies">Cookies</a>
           </div>
           <p>© {new Date().getFullYear()} Imprenta Boadilla</p>
         </div>
