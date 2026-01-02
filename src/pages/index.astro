@@ -1,285 +1,294 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const categories = [
+  { title: "Tarjetas de visita", desc: "Premium, laminadas, troquel", href: "/presupuesto", img: "/images/categories/cards.webp" },
+  { title: "Flyers y folletos", desc: "Reparto, eventos, promociones", href: "/presupuesto", img: "/images/categories/flyers.webp" },
+  { title: "Pegatinas", desc: "Corte a medida, vinilo, papel", href: "/presupuesto", img: "/images/categories/stickers.webp" },
+  { title: "Carteles", desc: "Interior/exterior, gran formato", href: "/presupuesto", img: "/images/categories/posters.webp" },
+  { title: "Lonas y vinilos", desc: "Escaparates, vehículos, eventos", href: "/presupuesto", img: "/images/categories/banners.webp" },
+  { title: "Packaging", desc: "Cajas, etiquetas, bolsas", href: "/presupuesto", img: "/images/categories/packaging.webp" },
+];
+
+const slides = [
+  { title: "Impresión profesional para tu negocio", subtitle: "Entrega rápida • Calidad cuidada • Trato local", cta: "Pedir presupuesto", href: "/presupuesto", img: "/images/hero/slide-1.webp" },
+  { title: "Pegatinas y packaging con tu marca", subtitle: "Etiquetas, adhesivos, cajas y bolsas", cta: "Ver opciones", href: "/presupuesto", img: "/images/hero/slide-2.webp" },
+  { title: "Cartelería y rotulación", subtitle: "Vinilos, lonas, rótulos y señalética", cta: "Solicitar precio", href: "/presupuesto", img: "/images/hero/slide-3.webp" },
+];
 ---
 
 <BaseLayout
-  title="Imprenta Boadilla — Imprenta, cartelería, rotulación y packaging"
+  title="Imprenta Boadilla — Impresión, cartelería, rotulación y packaging"
   description="Imprenta en Boadilla del Monte: tarjetas, flyers, vinilos, lonas, rotulación, pegatinas y packaging. Presupuesto rápido por WhatsApp o formulario."
 >
-  <!-- Hero -->
-  <section class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50 via-white to-white"></div>
+  <!-- Hero (slider simple con scroll-snap, estilo ecommerce) -->
+  <section class="bg-white">
+    <div class="container-max py-8 md:py-10">
+      <div class="grid gap-6 lg:grid-cols-[1fr,380px] lg:items-start">
+        <!-- Slider -->
+        <div class="card overflow-hidden">
+          <div class="border-b border-slatebrand-200 bg-slatebrand-50 px-5 py-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <p class="chip border-tealbrand-200 bg-tealbrand-50 text-tealbrand-900">Respuesta en 24h</p>
+              <p class="chip border-warm-200 bg-warm-50 text-warm-900">Revisión de PDF incluida</p>
+              <p class="chip border-accent-200 bg-accent-50 text-accent-800">Ofertas semanales</p>
+            </div>
+          </div>
 
-    <div class="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-2 md:py-20">
-      <div>
-        <p class="inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-4 py-2 text-sm text-slate-700 shadow-sm">
-          <span class="h-2 w-2 rounded-full bg-blue-600"></span>
-          Respuesta en 24h • Atención local
-        </p>
+          <div class="relative">
+            <div class="flex snap-x snap-mandatory overflow-x-auto scroll-smooth">
+              {slides.map((s) => (
+                <article class="relative min-w-full snap-start">
+                  <div class="grid min-h-[320px] gap-6 p-6 md:min-h-[360px] md:grid-cols-[1.1fr,0.9fr] md:p-10">
+                    <div class="flex flex-col justify-center">
+                      <h1 class="text-3xl font-bold tracking-tight text-slatebrand-900 md:text-4xl">
+                        {s.title}
+                      </h1>
+                      <p class="mt-3 text-slatebrand-600">{s.subtitle}</p>
 
-        <h1 class="mt-5 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">
-          Imprenta en Boadilla del Monte para empresas y particulares
-        </h1>
+                      <div class="mt-6 flex flex-wrap gap-3">
+                        <a class="btn btn-primary px-5 py-3" href={s.href}>{s.cta}</a>
+                        <a class="btn btn-outline px-5 py-3" href="/contacto">Contactar</a>
+                        <a
+                          class="btn btn-outline px-5 py-3"
+                          href="https://wa.me/TU_NUMERO_AQUI?text=Hola%20quiero%20un%20presupuesto%20de%20imprenta"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          WhatsApp
+                        </a>
+                      </div>
 
-        <p class="mt-4 text-lg text-slate-600">
-          Tarjetas, flyers, cartelería, vinilos, lonas, rotulación, packaging y diseño. Te asesoramos para que el resultado quede perfecto.
-        </p>
+                      <dl class="mt-8 grid grid-cols-3 gap-3 text-xs md:text-sm">
+                        <div class="rounded-2xl border border-slatebrand-200 bg-white p-4">
+                          <dt class="text-slatebrand-500">Entrega</dt>
+                          <dd class="mt-1 font-bold text-slatebrand-900">Urgente</dd>
+                        </div>
+                        <div class="rounded-2xl border border-slatebrand-200 bg-white p-4">
+                          <dt class="text-slatebrand-500">Calidad</dt>
+                          <dd class="mt-1 font-bold text-slatebrand-900">Premium</dd>
+                        </div>
+                        <div class="rounded-2xl border border-slatebrand-200 bg-white p-4">
+                          <dt class="text-slatebrand-500">Zona</dt>
+                          <dd class="mt-1 font-bold text-slatebrand-900">Oeste Madrid</dd>
+                        </div>
+                      </dl>
+                    </div>
 
-        <div class="mt-7 flex flex-wrap gap-3">
-          <a class="rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white shadow-sm hover:bg-blue-700" href="/presupuesto">
-            Pedir presupuesto
-          </a>
-          <a class="rounded-xl border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" href="/contacto">
-            Contactar
-          </a>
-          <a
-            class="rounded-xl border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50"
-            href="https://wa.me/TU_NUMERO_AQUI?text=Hola%20quiero%20un%20presupuesto%20de%20imprenta"
-            target="_blank"
-            rel="noreferrer"
-          >
-            WhatsApp
-          </a>
+                    <div class="relative">
+                      <div class="aspect-[4/3] overflow-hidden rounded-3xl border border-slatebrand-200 bg-slatebrand-50">
+                        <img
+                          src={s.img}
+                          alt={s.title}
+                          loading="lazy"
+                          class="h-full w-full object-cover"
+                        />
+                      </div>
+                      <div class="mt-3 flex items-center gap-2 text-xs text-slatebrand-500">
+                        <span class="inline-flex h-2 w-2 rounded-full bg-primary-600"></span>
+                        Desliza para ver más
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
 
-        <dl class="mt-10 grid grid-cols-2 gap-4 text-sm md:grid-cols-3">
-          <div class="rounded-2xl border border-slate-200 bg-white p-4">
-            <dt class="text-slate-500">Entrega</dt>
-            <dd class="mt-1 font-semibold text-slate-900">Urgente disponible</dd>
-          </div>
-          <div class="rounded-2xl border border-slate-200 bg-white p-4">
-            <dt class="text-slate-500">Calidad</dt>
-            <dd class="mt-1 font-semibold text-slate-900">Asesoramiento</dd>
-          </div>
-          <div class="rounded-2xl border border-slate-200 bg-white p-4">
-            <dt class="text-slate-500">Zona</dt>
-            <dd class="mt-1 font-semibold text-slate-900">Boadilla y alrededores</dd>
-          </div>
-        </dl>
-      </div>
-
-      <div class="relative">
-        <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="text-sm font-semibold text-slate-900">Presupuesto rápido</p>
-          <p class="mt-1 text-sm text-slate-600">Cuéntanos qué necesitas y te respondemos.</p>
+        <!-- “Quick quote” card -->
+        <aside class="card p-6">
+          <p class="text-sm font-bold text-slatebrand-900">Presupuesto rápido</p>
+          <p class="mt-1 text-sm text-slatebrand-600">Cuéntanos qué necesitas y te respondemos.</p>
 
           <form class="mt-5 grid gap-3" action="/api/request" method="POST">
             <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
 
-            <div class="grid gap-3 md:grid-cols-2">
-              <div>
-                <label class="sr-only" for="home_name">Nombre</label>
-                <input
-                  id="home_name"
-                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-600"
-                  name="name"
-                  required
-                  placeholder="Nombre"
-                  autocomplete="name"
-                />
-              </div>
-
-              <div>
-                <label class="sr-only" for="home_phone">Teléfono</label>
-                <input
-                  id="home_phone"
-                  class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-600"
-                  name="phone"
-                  placeholder="Teléfono"
-                  autocomplete="tel"
-                  inputmode="tel"
-                />
-              </div>
+            <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-1">
+              <input class="input" name="name" required placeholder="Nombre" autocomplete="name" />
+              <input class="input" name="phone" placeholder="Teléfono" autocomplete="tel" inputmode="tel" />
             </div>
 
-            <div>
-              <label class="sr-only" for="home_email">Email</label>
-              <input
-                id="home_email"
-                class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-600"
-                name="email"
-                type="email"
-                required
-                placeholder="Email"
-                autocomplete="email"
-              />
-            </div>
+            <input class="input" name="email" type="email" required placeholder="Email" autocomplete="email" />
 
-            <div>
-              <label class="sr-only" for="home_type">Tipo de trabajo</label>
-              <select
-                id="home_type"
-                class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 focus:border-blue-600"
-                name="type"
-              >
-                <option value="imprenta">Imprenta (tarjetas, flyers...)</option>
-                <option value="carteleria">Cartelería / rotulación</option>
-                <option value="packaging">Packaging / pegatinas</option>
-                <option value="diseno">Diseño</option>
-                <option value="otro">Otro</option>
-              </select>
-            </div>
+            <select class="input" name="type">
+              <option value="imprenta">Imprenta (tarjetas, flyers...)</option>
+              <option value="carteleria">Cartelería / rotulación</option>
+              <option value="packaging">Packaging / pegatinas</option>
+              <option value="diseno">Diseño</option>
+              <option value="otro">Otro</option>
+            </select>
 
-            <div>
-              <label class="sr-only" for="home_message">Detalles</label>
-              <textarea
-                id="home_message"
-                class="min-h-[130px] w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 placeholder:text-slate-400 focus:border-blue-600"
-                name="message"
-                required
-                placeholder="¿Qué necesitas? Cantidad, medidas, acabados y fecha…"
-              ></textarea>
-            </div>
+            <textarea class="input min-h-[130px]" name="message" required placeholder="Cantidad, medidas, acabados y fecha…"></textarea>
 
             <input type="hidden" name="source" value="home" />
 
-            <button class="rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700" type="submit">
-              Enviar
-            </button>
+            <button class="btn btn-primary w-full py-3" type="submit">Enviar</button>
 
-            <p class="text-xs text-slate-500">
-              Al enviar aceptas la <a class="underline hover:text-slate-900" href="/legal/privacidad">política de privacidad</a>.
+            <p class="text-xs text-slatebrand-500">
+              Al enviar aceptas la <a class="underline hover:text-slatebrand-900" href="/legal/privacidad">política de privacidad</a>.
             </p>
           </form>
-        </div>
+
+          <div class="mt-5 rounded-2xl border border-warm-200 bg-warm-50 p-4">
+            <p class="text-sm font-bold text-warm-900">Tip</p>
+            <p class="mt-1 text-xs text-warm-900/80">Si tienes PDF, envíalo con sangrado + 300dpi.</p>
+          </div>
+        </aside>
       </div>
     </div>
   </section>
 
-  <!-- Servicios -->
-  <section id="servicios" class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-14">
+  <!-- Categorías (tipo ecommerce) -->
+  <section id="categorias" class="border-t border-slatebrand-200 bg-slatebrand-50">
+    <div class="container-max py-14">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight">Más vendidos</h2>
+          <p class="mt-2 max-w-2xl text-slatebrand-600">
+            Productos típicos para empresas, comercios y eventos en Boadilla.
+          </p>
+        </div>
+        <a class="btn btn-outline" href="/presupuesto">Ver todo</a>
+      </div>
+
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {categories.map((c) => (
+          <a href={c.href} class="card group overflow-hidden">
+            <div class="aspect-[16/10] bg-slatebrand-50">
+              <img src={c.img} alt={c.title} loading="lazy" class="h-full w-full object-cover transition group-hover:scale-[1.03]" />
+            </div>
+            <div class="p-6">
+              <p class="text-lg font-bold">{c.title}</p>
+              <p class="mt-1 text-sm text-slatebrand-600">{c.desc}</p>
+              <p class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-primary-700">
+                Ver opciones <span aria-hidden="true">→</span>
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios (tu bloque, con colores nuevos) -->
+  <section id="servicios" class="border-t border-slatebrand-200 bg-white">
+    <div class="container-max py-14">
       <h2 class="text-2xl font-bold tracking-tight">Servicios</h2>
-      <p class="mt-2 max-w-2xl text-slate-600">
-        Lo más pedido en Boadilla: impresión comercial, rotulación y materiales para eventos o comercios.
+      <p class="mt-2 max-w-2xl text-slatebrand-600">
+        Impresión comercial, rotulación y materiales para eventos o comercios.
       </p>
 
       <div class="mt-8 grid gap-5 md:grid-cols-3">
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="text-sm font-semibold text-blue-700">Imprenta</p>
+        <div class="card p-6">
+          <p class="text-sm font-bold text-primary-700">Imprenta</p>
           <h3 class="mt-1 text-lg font-bold">Tarjetas, flyers y catálogos</h3>
-          <p class="mt-2 text-sm text-slate-600">Papel premium, acabados mate/brillo, laminados, troquel y más.</p>
-          <a class="mt-4 inline-flex text-sm font-semibold text-blue-700 hover:text-blue-800" href="/presupuesto">Pedir precio →</a>
+          <p class="mt-2 text-sm text-slatebrand-600">Papel premium, acabados mate/brillo, laminados, troquel y más.</p>
+          <a class="mt-4 inline-flex text-sm font-bold text-primary-700 hover:text-primary-800" href="/presupuesto">Pedir precio →</a>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="text-sm font-semibold text-blue-700">Cartelería</p>
+        <div class="card p-6">
+          <p class="text-sm font-bold text-primary-700">Cartelería</p>
           <h3 class="mt-1 text-lg font-bold">Vinilos, lonas y rótulos</h3>
-          <p class="mt-2 text-sm text-slate-600">Interior/exterior, escaparates, vehículos, eventos y señalética.</p>
-          <a class="mt-4 inline-flex text-sm font-semibold text-blue-700 hover:text-blue-800" href="/presupuesto">Pedir precio →</a>
+          <p class="mt-2 text-sm text-slatebrand-600">Interior/exterior, escaparates, vehículos, eventos y señalética.</p>
+          <a class="mt-4 inline-flex text-sm font-bold text-primary-700 hover:text-primary-800" href="/presupuesto">Pedir precio →</a>
         </div>
 
-        <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="text-sm font-semibold text-blue-700">Packaging</p>
+        <div class="card p-6">
+          <p class="text-sm font-bold text-primary-700">Packaging</p>
           <h3 class="mt-1 text-lg font-bold">Pegatinas y presentación</h3>
-          <p class="mt-2 text-sm text-slate-600">Etiquetas, adhesivos, cajas, bolsas y personalización para marca.</p>
-          <a class="mt-4 inline-flex text-sm font-semibold text-blue-700 hover:text-blue-800" href="/presupuesto">Pedir precio →</a>
+          <p class="mt-2 text-sm text-slatebrand-600">Etiquetas, adhesivos, cajas, bolsas y personalización para marca.</p>
+          <a class="mt-4 inline-flex text-sm font-bold text-primary-700 hover:text-primary-800" href="/presupuesto">Pedir precio →</a>
         </div>
       </div>
 
-      <div class="mt-10 rounded-3xl border border-slate-200 bg-blue-50 p-8">
-        <h3 class="text-xl font-bold">¿Tienes el diseño? Te lo revisamos gratis</h3>
-        <p class="mt-2 text-slate-600">
-          Si nos mandas tu PDF, revisamos sangrado, márgenes y resolución para evitar sorpresas.
+      <div class="mt-10 rounded-3xl border border-primary-100 bg-primary-50 p-8">
+        <h3 class="text-xl font-bold text-primary-900">¿Tienes el diseño? Te lo revisamos gratis</h3>
+        <p class="mt-2 text-primary-900/80">
+          Revisamos sangrado, márgenes y resolución para evitar sorpresas.
         </p>
         <div class="mt-5 flex flex-wrap gap-3">
-          <a class="rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700" href="/presupuesto">
-            Enviar detalles
-          </a>
-          <a class="rounded-xl border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-slate-50" href="/contacto">
-            Hablar con nosotros
-          </a>
+          <a class="btn btn-primary px-5 py-3" href="/presupuesto">Enviar detalles</a>
+          <a class="btn btn-outline px-5 py-3" href="/contacto">Hablar con nosotros</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Proceso -->
-  <section class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-14">
-      <h2 class="text-2xl font-bold tracking-tight">Cómo trabajamos</h2>
-      <p class="mt-2 max-w-2xl text-slate-600">Proceso simple para que tengas el material a tiempo.</p>
-
-      <div class="mt-8 grid gap-5 md:grid-cols-3">
-        <div class="rounded-2xl border border-slate-200 bg-white p-6">
-          <p class="text-sm font-semibold text-blue-700">1</p>
-          <p class="mt-2 font-bold">Nos dices qué necesitas</p>
-          <p class="mt-2 text-sm text-slate-600">Cantidad, medida, papel/acabado y fecha. Si tienes diseño, lo adjuntas.</p>
+  <!-- Trabajos -->
+  <section id="trabajos" class="border-t border-slatebrand-200 bg-white">
+    <div class="container-max py-14">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h2 class="text-2xl font-bold tracking-tight">Trabajos recientes</h2>
+          <p class="mt-2 max-w-2xl text-slatebrand-600">
+            Sustituye estos placeholders por fotos reales (recomendado).
+          </p>
         </div>
-        <div class="rounded-2xl border border-slate-200 bg-white p-6">
-          <p class="text-sm font-semibold text-blue-700">2</p>
-          <p class="mt-2 font-bold">Te enviamos propuesta</p>
-          <p class="mt-2 text-sm text-slate-600">Presupuesto claro y recomendaciones para mejorar el resultado.</p>
-        </div>
-        <div class="rounded-2xl border border-slate-200 bg-white p-6">
-          <p class="text-sm font-semibold text-blue-700">3</p>
-          <p class="mt-2 font-bold">Producción y entrega</p>
-          <p class="mt-2 text-sm text-slate-600">Imprimimos y entregamos con el plazo acordado.</p>
-        </div>
+        <a class="btn btn-outline" href="/contacto">Quiero algo así</a>
       </div>
-    </div>
-  </section>
-
-  <!-- Trabajos / portfolio (placeholder visual “pro”) -->
-  <section id="trabajos" class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-14">
-      <h2 class="text-2xl font-bold tracking-tight">Trabajos recientes</h2>
-      <p class="mt-2 max-w-2xl text-slate-600">
-        Aquí puedes poner fotos reales (recomendado). De momento queda como grid elegante.
-      </p>
 
       <div class="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <div class="aspect-[4/3] rounded-2xl border border-slate-200 bg-slate-50" aria-label={`Trabajo ${i + 1}`} />
+          <div class="card overflow-hidden">
+            <div class="aspect-[4/3] bg-slatebrand-50">
+              <img
+                src={`/images/portfolio/work-${i + 1}.webp`}
+                alt={`Trabajo ${i + 1}`}
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <div class="p-4">
+              <p class="text-sm font-bold">Proyecto {i + 1}</p>
+              <p class="mt-1 text-xs text-slatebrand-600">Descripción corta del trabajo (material, acabado, etc.).</p>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-14">
+  <section id="faq" class="border-t border-slatebrand-200 bg-slatebrand-50">
+    <div class="container-max py-14">
       <h2 class="text-2xl font-bold tracking-tight">Preguntas frecuentes</h2>
 
       <div class="mt-8 grid gap-4 md:grid-cols-2">
-        <details class="rounded-2xl border border-slate-200 bg-white p-6">
-          <summary class="cursor-pointer font-semibold">¿Qué formato de archivo es mejor?</summary>
-          <p class="mt-3 text-sm text-slate-600">PDF a tamaño final, con sangrado y fuentes trazadas (o incrustadas).</p>
+        <details class="card p-6">
+          <summary class="cursor-pointer font-bold">¿Qué formato de archivo es mejor?</summary>
+          <p class="mt-3 text-sm text-slatebrand-600">PDF a tamaño final, con sangrado y fuentes trazadas (o incrustadas).</p>
         </details>
 
-        <details class="rounded-2xl border border-slate-200 bg-white p-6">
-          <summary class="cursor-pointer font-semibold">¿Hacéis trabajos urgentes?</summary>
-          <p class="mt-3 text-sm text-slate-600">Sí, según tipo de producto y carga de producción. Indica la fecha.</p>
+        <details class="card p-6">
+          <summary class="cursor-pointer font-bold">¿Hacéis trabajos urgentes?</summary>
+          <p class="mt-3 text-sm text-slatebrand-600">Sí, según producto y carga. Indica la fecha.</p>
         </details>
 
-        <details class="rounded-2xl border border-slate-200 bg-white p-6">
-          <summary class="cursor-pointer font-semibold">¿Podéis diseñarlo vosotros?</summary>
-          <p class="mt-3 text-sm text-slate-600">Sí. Podemos adaptar tu idea o crear el diseño desde cero.</p>
+        <details class="card p-6">
+          <summary class="cursor-pointer font-bold">¿Podéis diseñarlo vosotros?</summary>
+          <p class="mt-3 text-sm text-slatebrand-600">Sí. Adaptamos tu idea o creamos el diseño desde cero.</p>
         </details>
 
-        <details class="rounded-2xl border border-slate-200 bg-white p-6">
-          <summary class="cursor-pointer font-semibold">¿Entregáis en Boadilla y alrededores?</summary>
-          <p class="mt-3 text-sm text-slate-600">Sí, Boadilla del Monte y zona oeste (Pozuelo, Majadahonda, etc.).</p>
+        <details class="card p-6">
+          <summary class="cursor-pointer font-bold">¿Entregáis en Boadilla y alrededores?</summary>
+          <p class="mt-3 text-sm text-slatebrand-600">Sí, Boadilla del Monte y zona oeste (Pozuelo, Majadahonda, etc.).</p>
         </details>
       </div>
     </div>
   </section>
 
   <!-- CTA final -->
-  <section class="border-t border-slate-200 bg-white">
-    <div class="mx-auto max-w-6xl px-4 py-14">
-      <div class="rounded-3xl bg-slate-900 px-8 py-10 text-white md:flex md:items-center md:justify-between">
+  <section class="border-t border-slatebrand-200 bg-white">
+    <div class="container-max py-14">
+      <div class="rounded-3xl bg-slatebrand-900 px-8 py-10 text-white md:flex md:items-center md:justify-between">
         <div>
           <h2 class="text-2xl font-bold">¿Listo para imprimir?</h2>
           <p class="mt-2 text-white/80">Cuéntanos tu idea y te damos presupuesto claro y rápido.</p>
         </div>
         <div class="mt-6 flex flex-wrap gap-3 md:mt-0">
-          <a class="rounded-xl bg-white px-5 py-3 font-semibold text-slate-900 hover:bg-white/90" href="/presupuesto">
-            Pedir presupuesto
-          </a>
-          <a class="rounded-xl border border-white/20 bg-white/10 px-5 py-3 font-semibold text-white hover:bg-white/15" href="/contacto">
-            Contacto
-          </a>
+          <a class="btn bg-white text-slatebrand-900 hover:bg-white/90 px-5 py-3" href="/presupuesto">Pedir presupuesto</a>
+          <a class="btn border border-white/20 bg-white/10 text-white hover:bg-white/15 px-5 py-3" href="/contacto">Contacto</a>
         </div>
       </div>
     </div>
