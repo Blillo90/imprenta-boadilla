@@ -1,8 +1,84 @@
 @import "tailwindcss";
 
+/* =========================
+   THEME (Tailwind v4 CSS-first)
+   ========================= */
+@theme {
+  /* Ghost White (PRIMARY) */
+  --color-primary-50: #e5e5ff;
+  --color-primary-100: #ccccff;
+  --color-primary-200: #9999ff;
+  --color-primary-300: #6666ff;
+  --color-primary-400: #3333ff;
+  --color-primary-500: #0000ff;
+  --color-primary-600: #0000cc;
+  --color-primary-700: #000099;
+  --color-primary-800: #000066;
+  --color-primary-900: #000033;
+  --color-primary-950: #000024;
+
+  /* Brick Ember (ACCENT / PROMOS) */
+  --color-accent-50: #fbebe9;
+  --color-accent-100: #f8d7d3;
+  --color-accent-200: #f0afa8;
+  --color-accent-300: #e9877c;
+  --color-accent-400: #e15f51;
+  --color-accent-500: #da3725;
+  --color-accent-600: #ae2c1e;
+  --color-accent-700: #832116;
+  --color-accent-800: #57160f;
+  --color-accent-900: #2c0b07;
+  --color-accent-950: #1f0805;
+
+  /* Apricot Cream (WARM) */
+  --color-warm-50: #fcf4e9;
+  --color-warm-100: #f9e8d2;
+  --color-warm-200: #f2d1a6;
+  --color-warm-300: #ecba79;
+  --color-warm-400: #e6a34c;
+  --color-warm-500: #df8c20;
+  --color-warm-600: #b37019;
+  --color-warm-700: #865413;
+  --color-warm-800: #59380d;
+  --color-warm-900: #2d1c06;
+  --color-warm-950: #1f1404;
+
+  /* Blue Slate (NEUTRALS) */
+  --color-slatebrand-50: #f0f1f4;
+  --color-slatebrand-100: #e1e4ea;
+  --color-slatebrand-200: #c4c9d4;
+  --color-slatebrand-300: #a6aebf;
+  --color-slatebrand-400: #8992a9;
+  --color-slatebrand-500: #6b7794;
+  --color-slatebrand-600: #565f76;
+  --color-slatebrand-700: #404859;
+  --color-slatebrand-800: #2b303b;
+  --color-slatebrand-900: #15181e;
+  --color-slatebrand-950: #0f1115;
+
+  /* Jungle Teal (SUCCESS / TRUST) */
+  --color-tealbrand-50: #eef7f4;
+  --color-tealbrand-100: #ddeee9;
+  --color-tealbrand-200: #baded3;
+  --color-tealbrand-300: #98cdbc;
+  --color-tealbrand-400: #75bda6;
+  --color-tealbrand-500: #53ac90;
+  --color-tealbrand-600: #428a73;
+  --color-tealbrand-700: #326756;
+  --color-tealbrand-800: #21453a;
+  --color-tealbrand-900: #11221d;
+  --color-tealbrand-950: #0c1814;
+
+  /* Radius “pixart-ish” */
+  --radius-xl: 0.9rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+}
+
+/* Tipografía base (la tuya) */
 html {
-  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Apple Color Emoji",
-    "Segoe UI Emoji";
+  font-family: "Montserrat", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans",
+    "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 button,
@@ -14,4 +90,38 @@ a,
 :focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
+}
+
+/* =========================
+   Component helpers
+   ========================= */
+@layer components {
+  .container-max {
+    @apply mx-auto max-w-6xl px-4;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition;
+  }
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700;
+  }
+  .btn-outline {
+    @apply border border-slatebrand-200 bg-white text-slatebrand-900 hover:bg-slatebrand-50;
+  }
+  .btn-accent {
+    @apply bg-accent-500 text-white hover:bg-accent-600;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-slatebrand-200 bg-white px-4 py-3 text-slatebrand-900 placeholder:text-slatebrand-400 focus:border-primary-600;
+  }
+
+  .card {
+    @apply rounded-3xl border border-slatebrand-200 bg-white shadow-sm;
+  }
 }
